@@ -10,6 +10,7 @@ public class Pool : MonoBehaviour {
 	public List<GameObject> Explosiones;
 	public GameObject disparo_basico;
 	public GameObject enemigo_basico;
+	public GameObject enemigo_2;
 	public int numDisparos = 10;
 	[HideInInspector]public float cadenciaDisparo;
 	public int numEnemigos = 10;
@@ -27,7 +28,11 @@ public class Pool : MonoBehaviour {
 
 		Enemigos = new List<GameObject> ();
 		for (int i = 0; i < numEnemigos; i++) {
-			GameObject go = (GameObject) Instantiate(enemigo_basico);
+			GameObject go;
+			if(i < numEnemigos/2)
+				go = (GameObject) Instantiate(enemigo_basico);
+			else 
+				go = (GameObject) Instantiate(enemigo_2);
 			go.SetActive(false);
 			Enemigos.Add(go);
 		}

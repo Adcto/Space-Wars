@@ -10,11 +10,15 @@ public class Enemy2 : EnemyController {
 	public override void Start () {
 		nextPositions = new List<Vector2> ();
 		ActualizarPosiciones ();
-		rotationTime *= 2;
+
 	}
 	
 	// Update is called once per frame
 
+
+	void OnEnable(){
+		ActualizarPosiciones ();
+	}
 
 	public override Vector3 NextPos(){
 
