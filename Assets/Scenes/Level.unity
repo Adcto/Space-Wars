@@ -324,6 +324,7 @@ GameObject:
   - 114: {fileID: 509921641}
   - 114: {fileID: 509921642}
   - 114: {fileID: 509921643}
+  - 114: {fileID: 509921644}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -438,12 +439,34 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 509921635}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59caec0587fcf2a4492459f35f7db53b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bounds: {fileID: 490438890}
+--- !u!114 &509921644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 509921635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9427ec0f4de88974392d3d009092cbc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 807469039}
+  scrollMultiplier: 1.79999995
+  movementWindowSize: {x: 8, y: 6}
+  windowOffset: {x: 0, y: 0}
+  limitCameraMovement: 1
+  limitLeft: -16.7000008
+  limitRight: 16.7000008
+  limitBottom: -9.39999962
+  limitTop: 9.39999962
+  showDebugBoxes: 0
+  activeTracking: 1
 --- !u!1 &534703318
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +618,10 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &807469039 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 143854, guid: 75935783935f2da4da480831970088fd, type: 2}
+  m_PrefabInternal: {fileID: 962618783}
 --- !u!1 &925689515
 GameObject:
   m_ObjectHideFlags: 0
