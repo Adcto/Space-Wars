@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour {
 	public float currentHealth;
 	public bool puedeDisparar = false;
 	public float cadenciaDisparo;
+	public BoxCollider2D bounds;
 	//skill1,skill2
 	public float angle;
 	public float speed = 2f;
 	private Vector2 shootDirection;
 	private Rigidbody2D rig;
 	private float cooldownDisparo = 0;
+	private Bounds borde;
 	// Use this for initialization
 	void Awake(){
 		current = this;
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start () {
+		borde = bounds.bounds;
 		cadenciaDisparo = Pool.current.cadenciaDisparo; //Habra q actualizarla cuando se cambie de disparo
 		currentHealth = maxHealth;
 		rig = GetComponent<Rigidbody2D> ();
@@ -47,6 +50,9 @@ public class PlayerController : MonoBehaviour {
 		angle = aim.GetAngle ();
 
 		rig.velocity = direction * speed;
+		float x = Mathf.Clamp (transform.position.x, borde.min.x, borde.max.x);
+		float y = Mathf.Clamp (transform.position.y, borde.min.y, borde.max.y);
+		transform.position = new Vector2 (x, y);
 		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0, 0, angle), 540 * Time.deltaTime); // Giro con delay
 		//rig.MoveRotation(angle); //Giro Instantaneo
 	}

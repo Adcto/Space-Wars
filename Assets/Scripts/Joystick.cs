@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler {
 	
@@ -10,7 +11,9 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 	private Vector2 direction;
 	private Vector2 smoothDirection;
 	private float angle;
+	public GameObject img;
 	public bool touched;
+	public Vector2 pos;
 	private int pointerID;
 
 	void Awake () {
@@ -23,6 +26,11 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 			touched = true;
 			pointerID = data.pointerId;
 			origin = data.position;
+			//img.position = origin;
+			pos = Camera.main.ScreenToWorldPoint(origin);
+			img.transform.position = pos;
+			//img.rect.position.Set(pos.x,pos.y);
+			img.SetActive(true);
 		}
 	}
 	
@@ -42,6 +50,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 		if (data.pointerId == pointerID) {
 			direction = Vector2.zero;
 			touched = false;
+			img.SetActive(false);
 		}
 	}
 	
