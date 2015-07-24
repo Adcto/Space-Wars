@@ -32,10 +32,12 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate () {
 		Move ();
 		if (puedeDisparar) {
-			cooldownDisparo += Time.deltaTime;
-			if(cooldownDisparo >= cadenciaDisparo){
-				cooldownDisparo = 0;
-				Disparar ();
+			if(aim.touched){					//Solo dispara cuando pulsas el joystick derecho!
+				cooldownDisparo += Time.deltaTime;
+				if(cooldownDisparo >= cadenciaDisparo){
+					cooldownDisparo = 0;
+					Disparar ();
+				}
 			}
 		}
 	}
@@ -67,6 +69,8 @@ public class PlayerController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other){
 		if (other.gameObject.tag == "Enemy") {
 			currentHealth--;
+			//transform.position = Vector2.zero;
+
 			other.gameObject.SetActive(false);
 		}
 	}

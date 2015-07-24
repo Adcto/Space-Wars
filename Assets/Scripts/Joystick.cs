@@ -10,7 +10,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 	private Vector2 direction;
 	private Vector2 smoothDirection;
 	private float angle;
-	private bool touched;
+	public bool touched;
 	private int pointerID;
 
 	void Awake () {

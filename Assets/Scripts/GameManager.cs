@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 	}
 	void CrearEnemigos(){
 		GameObject enemy = Pool.current.Crear_Enemigo ();
+		if (enemy == null)
+			return;
 		enemy.transform.position = Vector2.one * Random.Range (-4, 4);
 		enemy.SetActive (true);
 	}

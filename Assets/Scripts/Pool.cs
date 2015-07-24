@@ -11,6 +11,8 @@ public class Pool : MonoBehaviour {
 	public GameObject disparo_basico;
 	public GameObject enemigo_basico;
 	public GameObject enemigo_2;
+	public GameObject enemigo_3;
+	public GameObject enemigo_4;
 	public int numDisparos = 10;
 	[HideInInspector]public float cadenciaDisparo;
 	public int numEnemigos = 10;
@@ -28,11 +30,21 @@ public class Pool : MonoBehaviour {
 
 		Enemigos = new List<GameObject> ();
 		for (int i = 0; i < numEnemigos; i++) {
-			GameObject go;
-			if(i < numEnemigos/2)
+			GameObject go = null;
+			switch(Random.Range(0,4)){ //[0,3]
+			case 0:
 				go = (GameObject) Instantiate(enemigo_basico);
-			else 
+				break;
+			case 1:
 				go = (GameObject) Instantiate(enemigo_2);
+				break;
+			case 2:
+				go = (GameObject) Instantiate(enemigo_3);
+				break;
+			case 3:
+				go = (GameObject) Instantiate(enemigo_4);
+				break;
+			}
 			go.SetActive(false);
 			Enemigos.Add(go);
 		}
