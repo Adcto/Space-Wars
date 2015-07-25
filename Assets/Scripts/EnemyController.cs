@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
-	public float maxHealth;
+	public float maxHealth = 10;
 	public float currentHealth;
 	public float speed;
 	public float rotationTime = 540;
@@ -10,11 +10,16 @@ public class EnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	public virtual void Start () {
-
 	}
-	
+	public virtual void OnEnable(){
+		currentHealth = maxHealth;
+	}
 	// Update is called once per frame
 	void Update () {
+		if (currentHealth <= 0) {
+			GameManager.current.AddScore(score);
+			gameObject.SetActive (false);
+		}
 		Move (NextPos());
 		Rotate();
 	}

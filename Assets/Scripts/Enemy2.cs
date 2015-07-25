@@ -17,9 +17,10 @@ public class Enemy2 : EnemyController {
 	// Update is called once per frame
 
 
-	void OnEnable(){
+	public override void OnEnable(){
 		currentPosition = 0;
 		nextPosition = transPositions[currentPosition].position;
+		base.OnEnable (); //reset hp
 	}
 
 	public override Vector3 NextPos(){

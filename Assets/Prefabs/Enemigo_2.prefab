@@ -156,10 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4377df6d37648ac4d8d7def6e9b46c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
+  maxHealth: 20
   currentHealth: 0
   speed: 5
   rotationTime: 1080
+  score: 20
   transPositions:
   - {fileID: 451964}
   - {fileID: 469214}
@@ -222,7 +223,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: score
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 190660}

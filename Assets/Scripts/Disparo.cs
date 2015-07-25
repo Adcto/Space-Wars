@@ -5,7 +5,7 @@ public class Disparo : MonoBehaviour {
 
 	public float speed;
 	public float cadencia = 0.08f;
-	public float damage;
+	public float damage = 10;
 	public Vector2 direction;
 	private Rigidbody2D rig;
 
@@ -21,13 +21,11 @@ public class Disparo : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other){
 		if (other.gameObject.tag == "Enemy") {
-			gameObject.SetActive(false);
-			GameManager.current.AddScore(other.gameObject.GetComponent<EnemyController>().score);
-			other.gameObject.SetActive(false);
-			
+			other.gameObject.GetComponent<EnemyController>().currentHealth-=damage;
+			gameObject.SetActive(false);	
 		}
-		
 	}
+
 	void OnBecameInvisible(){
 		gameObject.SetActive(false);
 	}
