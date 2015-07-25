@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour {
 	public float currentHealth;
 	public float speed;
 	public float rotationTime = 540;
+	public int score = 10;
 
 	// Use this for initialization
 	public virtual void Start () {
@@ -28,8 +29,10 @@ public class EnemyController : MonoBehaviour {
 		float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg -90;
 		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0, 0, angle), rotationTime * Time.deltaTime);
 	}
+
 	public virtual Vector3 NextPos(){
 		return PlayerController.current.transform.position;
 	}
-	
+
+
 }

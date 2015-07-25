@@ -22,6 +22,7 @@ public class Disparo : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other){
 		if (other.gameObject.tag == "Enemy") {
 			gameObject.SetActive(false);
+			GameManager.current.AddScore(other.gameObject.GetComponent<EnemyController>().score);
 			other.gameObject.SetActive(false);
 			
 		}
