@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 	private Vector2 shootDirection;
 	private Rigidbody2D rig;
 	private float cooldownDisparo = 0;
+	public Collider2D collider;
+	public Vector2 direction;
 
 	// Use this for initialization
 	void Awake(){
@@ -28,6 +30,9 @@ public class PlayerController : MonoBehaviour {
 		cadenciaDisparo = Pool.current.cadenciaDisparo; //Habra q actualizarla cuando se cambie de disparo
 		currentHealth = maxHealth;
 		rig = GetComponent<Rigidbody2D> ();
+		collider = GetComponent<Collider2D> ();
+
+
 	}
 
 	// Update is called once per frame
@@ -45,7 +50,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Move(){
-		Vector2 direction = movement.GetDirection ();
+		direction = movement.GetDirection ();
 		angle = aim.GetAngle ();
 
 		rig.velocity = direction * speed;

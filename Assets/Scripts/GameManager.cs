@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System;
 
 public class GameManager : MonoBehaviour {
 	public float cd_enemigos = 2.5f;
@@ -12,7 +13,16 @@ public class GameManager : MonoBehaviour {
 	public float resetMult = 0.5f;
 	private float time = 0.5f;
 	public static GameManager current;
-	public List<Transform> SpawnPoints;
+	public List<Transform> spawnPoints;
+	public GameObject spawnPref;
+	//public List<Vector3> spawnPoints;
+	public bool useRandomSeed;
+	public string seed;
+	private System.Random randomNumber;
+	private int minNumberSpawns,maxNumberSpawns;
+	public float tiempoNuevaRonda;
+	private float tiempo;
+	public int currentRound;
 
 	void Awake(){
 		current = this;
@@ -20,12 +30,31 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		if (useRandomSeed)
+			seed = Time.time.ToString ();
+		minNumberSpawns = 0;
+		maxNumberSpawns = 3;
+		randomNumber = new System.Random (seed.GetHashCode());
+		newRound ();
+	}
+
+	void newRound(){
+		ClearSpawnPoints ();
+		minNumberSpawns = currentRound / 20;
+		maxNumberSpawns = currentRound / 15 + 3;
+
+		int newSpawns = randomNumber.Next (minNumberSpawns, maxNumberSpawns);
+
+		for(int i = 0; i< newSpawns;i++)
+			CreateNewSpawnPoints ();
 
 		InvokeRepeating ("CrearEnemigos", cd_enemigos, cd_enemigos);
+	
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		tiempo += Time.deltaTime;
 		if (mult > 1) {
 			if(time > 0){
 				time -= Time.deltaTime;
@@ -37,15 +66,46 @@ public class GameManager : MonoBehaviour {
 				multiplicadorBarra.fillAmount = 0;
 			}
 		}
+		if (tiempoNuevaRonda <= tiempo) {
+			tiempo =0;
+			currentRound++;
+			newRound ();
+		}
+
+
 	}
 
 	void CrearEnemigos(){
 		GameObject enemy = Pool.current.Crear_Enemigo ();
 		if (enemy == null)
 			return;
-		enemy.transform.position = SpawnPoints[Random.Range (0, 8)].position;
+
+		//0-3, posiciones referentes a la camara
+		//4-7, posiciones esquinas del mapa
+		//8+, posiciones random extra
+		enemy.transform.position = spawnPoints[randomNumber.Next(0,spawnPoints.Count)].position;
 		enemy.SetActive (true);
 	}
+
+	void ClearSpawnPoints(){
+		for (int i = 8; i < spawnPoints.Count; i++)
+			Destroy (spawnPoints [i].gameObject);
+
+		spawnPoints.RemoveRange (8, spawnPoints.Count - 8);
+	}
+
+	void CreateNewSpawnPoints(){
+
+		Vector2 pos = new Vector2(randomNumber.Next ((int)PlayerController.current.min.x,(int) PlayerController.current.max.x),
+		                          randomNumber.Next ((int)PlayerController.current.min.y, (int) PlayerController.current.max.y) );
+		GameObject spawn = (GameObject) Instantiate (spawnPref,pos,Quaternion.identity);
+		//spawn.position = pos;
+
+
+		spawnPoints.Add (spawn.transform);
+	
+	}
+
 	public void AddScore(int punt){
 		punt *= mult;
 		//Para mejorar el sistema de multiplicador, solo habria que sumar algo a tiempo, y cuando tiempo >=resetmult -> mult++

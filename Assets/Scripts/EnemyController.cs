@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour {
 		currentHealth = maxHealth;
 	}
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (currentHealth <= 0) {
 			GameManager.current.AddScore(score);
 			gameObject.SetActive (false);
