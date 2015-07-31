@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour {
 	public float tiempoNuevaRonda;
 	private float tiempo;
 	public int currentRound;
+	private int enemigosRestantes;
+	public int enemigosTotales;
+	public int valorEnemigos;
+	public int enemigosEliminados = 0;
+	public List<int> tipoEnemigos;
+	private List<int> posibleEnemigos;
 
 	void Awake(){
 		current = this;
@@ -35,10 +41,14 @@ public class GameManager : MonoBehaviour {
 		minNumberSpawns = 0;
 		maxNumberSpawns = 3;
 		randomNumber = new System.Random (seed.GetHashCode());
+		tipoEnemigos = new List<int>();
+		posibleEnemigos = new List<int>();
 		newRound ();
 	}
 
 	void newRound(){
+		currentRound++;
+		enemigosEliminados = 0;
 		ClearSpawnPoints ();
 		minNumberSpawns = currentRound / 20;
 		maxNumberSpawns = currentRound / 15 + 3;
@@ -48,13 +58,67 @@ public class GameManager : MonoBehaviour {
 		for(int i = 0; i< newSpawns;i++)
 			CreateNewSpawnPoints ();
 
+		valorEnemigos += randomNumber.Next (1, 4);
+		enemigosTotales += randomNumber.Next (0, 3);
+		if (currentRound == 1) {
+			for(int i = 0; i< enemigosTotales; i++){
+				posibleEnemigos.Add(1);
+			}
+		}
+
+		//Calcular que tipos de enemigos hay que spawnear en esta ronda, y ajustar el numero de enemigos si es necesario!
+		CalcularEnemigos ();
+
+		enemigosRestantes = enemigosTotales;
 		InvokeRepeating ("CrearEnemigos", cd_enemigos, cd_enemigos);
-	
 	}
-	
+
+	void CalcularEnemigos(){
+		if (posibleEnemigos.Count < enemigosTotales) {
+			for(int i = posibleEnemigos.Count; i< enemigosTotales; i++){
+				posibleEnemigos.Add(1);
+			}
+		}
+		int sum = 0;
+		foreach (int x in posibleEnemigos) {
+			sum +=x;
+		}
+		if (sum == valorEnemigos) {
+			tipoEnemigos = posibleEnemigos;
+		} 
+		else if (sum < valorEnemigos) {
+			while(sum != valorEnemigos){
+				int valor = valorEnemigos - sum;
+				int pos = randomNumber.Next (0, posibleEnemigos.Count);
+				int rand = randomNumber.Next (1, valor);
+				posibleEnemigos [pos] += rand;
+				sum += rand;
+			}
+			tipoEnemigos = posibleEnemigos;
+		}
+		else if (sum > valorEnemigos) {
+			while(sum != valorEnemigos){
+				int valor = sum - valorEnemigos;
+				int pos = randomNumber.Next (0, posibleEnemigos.Count);
+				int rand = randomNumber.Next (1, valor);
+				while(posibleEnemigos [pos] - rand <= 0 ){
+					pos = randomNumber.Next (0, posibleEnemigos.Count);
+					rand = randomNumber.Next (1, valor);
+				}
+				posibleEnemigos [pos] -= rand;
+				sum -= rand;
+				
+			}
+			tipoEnemigos = posibleEnemigos;
+		}
+
+
+
+	}
+
 	// Update is called once per frame
 	void Update () {
-		tiempo += Time.deltaTime;
+
 		if (mult > 1) {
 			if(time > 0){
 				time -= Time.deltaTime;
@@ -66,9 +130,8 @@ public class GameManager : MonoBehaviour {
 				multiplicadorBarra.fillAmount = 0;
 			}
 		}
-		if (tiempoNuevaRonda <= tiempo) {
-			tiempo =0;
-			currentRound++;
+
+		if (enemigosEliminados == enemigosTotales) {
 			newRound ();
 		}
 
@@ -76,7 +139,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void CrearEnemigos(){
-		GameObject enemy = Pool.current.Crear_Enemigo ();
+		if (enemigosRestantes == 0) {
+			CancelInvoke();
+			return;
+		}
+		GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[enemigosRestantes-1]);
 		if (enemy == null)
 			return;
 
@@ -85,6 +152,7 @@ public class GameManager : MonoBehaviour {
 		//8+, posiciones random extra
 		enemy.transform.position = spawnPoints[randomNumber.Next(0,spawnPoints.Count)].position;
 		enemy.SetActive (true);
+		enemigosRestantes--;
 	}
 
 	void ClearSpawnPoints(){

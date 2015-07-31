@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour {
 			currentHealth--;
 			//transform.position = Vector2.zero;
 
-			other.gameObject.SetActive(false);
+			other.gameObject.GetComponent<EnemyController>().currentHealth=0;
 		}
 	}
 }

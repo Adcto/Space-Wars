@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
 	void FixedUpdate () {
 		if (currentHealth <= 0) {
 			GameManager.current.AddScore(score);
+			GameManager.current.enemigosEliminados++;
 			gameObject.SetActive (false);
 		}
 		Move (NextPos());
@@ -39,5 +40,6 @@ public class EnemyController : MonoBehaviour {
 		return PlayerController.current.transform.position;
 	}
 
+	
 
 }

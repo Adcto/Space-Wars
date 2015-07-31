@@ -475,7 +475,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Disparos: []
-  Enemigos: []
+  Enemigos1: []
+  Enemigos2: []
+  Enemigos3: []
+  Enemigos4: []
   Explosiones: []
   disparo_basico: {fileID: 197566, guid: eb96fb6b926003f4da3da26b8e75800d, type: 2}
   enemigo_basico: {fileID: 139324, guid: 432093bd183e9c446a6907d7c3246d6e, type: 2}
@@ -516,6 +519,10 @@ MonoBehaviour:
   seed: Victor
   tiempoNuevaRonda: 5
   currentRound: 0
+  enemigosTotales: 10
+  valorEnemigos: 18
+  enemigosEliminados: 0
+  tipoEnemigos: 
 --- !u!114 &509921643
 MonoBehaviour:
   m_ObjectHideFlags: 0
