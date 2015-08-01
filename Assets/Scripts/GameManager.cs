@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour {
 	public int valorEnemigos;
 	public int enemigosEliminados = 0;
 	public List<int> tipoEnemigos;
-	private List<int> posibleEnemigos;
 
 	void Awake(){
 		current = this;
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour {
 		maxNumberSpawns = 3;
 		randomNumber = new System.Random (seed.GetHashCode());
 		tipoEnemigos = new List<int>();
-		posibleEnemigos = new List<int>();
+
 		newRound ();
 	}
 
@@ -62,7 +61,7 @@ public class GameManager : MonoBehaviour {
 		enemigosTotales += randomNumber.Next (0, 3);
 		if (currentRound == 1) {
 			for(int i = 0; i< enemigosTotales; i++){
-				posibleEnemigos.Add(1);
+				tipoEnemigos.Add(1);
 			}
 		}
 
@@ -74,46 +73,32 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void CalcularEnemigos(){
-		if (posibleEnemigos.Count < enemigosTotales) {
-			for(int i = posibleEnemigos.Count; i< enemigosTotales; i++){
-				posibleEnemigos.Add(1);
+		if (tipoEnemigos.Count < enemigosTotales) {
+			for(int i = tipoEnemigos.Count; i< enemigosTotales; i++){
+				tipoEnemigos.Add(1);
 			}
 		}
 		int sum = 0;
-		foreach (int x in posibleEnemigos) {
+		foreach (int x in tipoEnemigos) {
 			sum +=x;
 		}
 		if (sum == valorEnemigos) {
-			tipoEnemigos = posibleEnemigos;
+			return;
 		} 
 		else if (sum < valorEnemigos) {
-			while(sum != valorEnemigos){
-				int valor = valorEnemigos - sum;
-				int pos = randomNumber.Next (0, posibleEnemigos.Count);
-				int rand = randomNumber.Next (1, valor);
-				posibleEnemigos [pos] += rand;
-				sum += rand;
+			for(int i = sum; i < valorEnemigos; i++){
+				int pos = randomNumber.Next (0, tipoEnemigos.Count);
+				tipoEnemigos [pos] ++;
 			}
-			tipoEnemigos = posibleEnemigos;
 		}
 		else if (sum > valorEnemigos) {
-			while(sum != valorEnemigos){
-				int valor = sum - valorEnemigos;
-				int pos = randomNumber.Next (0, posibleEnemigos.Count);
-				int rand = randomNumber.Next (1, valor);
-				while(posibleEnemigos [pos] - rand <= 0 ){
-					pos = randomNumber.Next (0, posibleEnemigos.Count);
-					rand = randomNumber.Next (1, valor);
-				}
-				posibleEnemigos [pos] -= rand;
-				sum -= rand;
-				
+			for(int i = sum; i > valorEnemigos; i--){
+				int pos = randomNumber.Next (0, tipoEnemigos.Count);
+				while(tipoEnemigos [pos] == 1)
+					pos = randomNumber.Next (0, tipoEnemigos.Count);
+				tipoEnemigos [pos] ++;
 			}
-			tipoEnemigos = posibleEnemigos;
 		}
-
-
-
 	}
 
 	// Update is called once per frame
