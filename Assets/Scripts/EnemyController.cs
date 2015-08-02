@@ -15,17 +15,20 @@ public class EnemyController : MonoBehaviour {
 		currentHealth = maxHealth;
 	}
 	// Update is called once per frame
-	void FixedUpdate () {
+	public void FixedUpdate () {
+		Move (NextPos());
+		Rotate();
+	}
+
+	public void Update(){
 		if (currentHealth <= 0) {
 			GameManager.current.AddScore(score);
 			GameManager.current.enemigosEliminados++;
 			gameObject.SetActive (false);
 		}
-		Move (NextPos());
-		Rotate();
 	}
 
-	public virtual void Move(Vector3 nextPosition){
+	public void Move(Vector3 nextPosition){
 		transform.position = Vector2.MoveTowards (transform.position,nextPosition ,speed* Time.deltaTime);
 	}
 

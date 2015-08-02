@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
 	public int valorEnemigos;
 	public int enemigosEliminados = 0;
 	public List<int> tipoEnemigos;
+	public Vector2 comprobarPos;
 
 	void Awake(){
 		current = this;
@@ -82,10 +83,7 @@ public class GameManager : MonoBehaviour {
 		foreach (int x in tipoEnemigos) {
 			sum +=x;
 		}
-		if (sum == valorEnemigos) {
-			return;
-		} 
-		else if (sum < valorEnemigos) {
+		if (sum < valorEnemigos) {
 			for(int i = sum; i < valorEnemigos; i++){
 				int pos = randomNumber.Next (0, tipoEnemigos.Count);
 				tipoEnemigos [pos] ++;
@@ -99,6 +97,7 @@ public class GameManager : MonoBehaviour {
 				tipoEnemigos [pos] ++;
 			}
 		}
+		tipoEnemigos.Sort ();
 	}
 
 	// Update is called once per frame
@@ -119,8 +118,6 @@ public class GameManager : MonoBehaviour {
 		if (enemigosEliminados == enemigosTotales) {
 			newRound ();
 		}
-
-
 	}
 
 	void CrearEnemigos(){
@@ -128,16 +125,70 @@ public class GameManager : MonoBehaviour {
 			CancelInvoke();
 			return;
 		}
-		GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[enemigosRestantes-1]);
+		int pos = tipoEnemigos.Count - enemigosRestantes;
+		if (enemigosRestantes >= 5) {						//Prueba con oleadas fijas, de 5 naves
+			bool spawnOleada = true;
+			for (int i = 1; i < 5 && spawnOleada; i++) {
+			
+				if (tipoEnemigos [pos] != tipoEnemigos [pos + i])
+					spawnOleada = false;
+			}
+			if (spawnOleada) {
+				//StartCoroutine("SpawnearOleada", pos);
+				SpawnearOleada(pos);
+				return;
+			}
+		}
+
+		GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[pos]);
 		if (enemy == null)
 			return;
 
 		//0-3, posiciones referentes a la camara
 		//4-7, posiciones esquinas del mapa
 		//8+, posiciones random extra
-		enemy.transform.position = spawnPoints[randomNumber.Next(0,spawnPoints.Count)].position;
+		int spawnPos = randomNumber.Next (0, spawnPoints.Count);
+
+		while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {			//Si la posicion de spawn es una de las que depende de la camara, esta podria salirse del mapa
+			spawnPos = randomNumber.Next (0, spawnPoints.Count);
+		}
+
+		enemy.transform.position = spawnPoints[spawnPos].position;
 		enemy.SetActive (true);
 		enemigosRestantes--;
+	}
+
+	void SpawnearOleada(int pos){
+		enemigosRestantes -= 5;
+		int spawnPos = randomNumber.Next (0, spawnPoints.Count);
+
+		while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {
+			spawnPos = randomNumber.Next (0, spawnPoints.Count);
+		}
+		
+		Vector3 nextPos = Vector3.zero;
+		for (int i = 0; i < 5; i++){
+			GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[pos]);	//da igual incrementarlo, son el mismo
+			nextPos*=-1;
+			if(i == 1)
+				nextPos = Vector3.right;
+			else if(i==3)
+				nextPos = Vector3.up;
+			enemy.transform.position = spawnPoints[spawnPos].position + nextPos;
+			enemy.SetActive (true);
+			//yield return new WaitForSeconds(0.1f);
+		}
+	}
+
+	bool ComprobarSpawn(int i){
+		Vector2 max = PlayerController.current.max;
+		Vector2 min = PlayerController.current.min;
+		comprobarPos = spawnPoints [i].position;
+		if (comprobarPos.x >= min.x && comprobarPos.y >= min.y && comprobarPos.x <= max.x && comprobarPos.y <= max.y) {
+			return true;
+		}
+		return false;
+	
 	}
 
 	void ClearSpawnPoints(){

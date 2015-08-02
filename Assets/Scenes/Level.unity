@@ -488,7 +488,7 @@ MonoBehaviour:
   numDisparos: 20
   cadenciaDisparo: 0
   numEnemigos: 4
-  aumentar_enemigos: 0
+  aumentar_enemigos: 1
 --- !u!114 &509921642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,6 +523,7 @@ MonoBehaviour:
   valorEnemigos: 18
   enemigosEliminados: 0
   tipoEnemigos: 
+  comprobarPos: {x: 0, y: 0}
 --- !u!114 &509921643
 MonoBehaviour:
   m_ObjectHideFlags: 0
