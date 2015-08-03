@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	private float cooldownDisparo = 0;
 	public Collider2D collider;
 	public Vector2 direction;
+	public ParticleSystem rastro;
 
 	// Use this for initialization
 	void Awake(){
@@ -54,6 +55,11 @@ public class PlayerController : MonoBehaviour {
 		angle = aim.GetAngle ();
 
 		rig.velocity = direction * speed;
+		if (rig.velocity == Vector2.zero && rastro.isPlaying) 
+			rastro.Stop ();
+		else if (rig.velocity != Vector2.zero && rastro.isStopped)
+			rastro.Play ();
+
 		float x = Mathf.Clamp (transform.position.x, min.x, max.x);
 		float y = Mathf.Clamp (transform.position.y, min.y,max.y);
 		transform.position = new Vector2 (x, y);

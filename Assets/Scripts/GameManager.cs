@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour {
 	public int valorEnemigos;
 	public int enemigosEliminados = 0;
 	public List<int> tipoEnemigos;
-	public Vector2 comprobarPos;
+	public List<int> enemigosSpawneados;
+	private bool nuevaRonda = false;
 
 	void Awake(){
 		current = this;
@@ -42,13 +43,15 @@ public class GameManager : MonoBehaviour {
 		maxNumberSpawns = 3;
 		randomNumber = new System.Random (seed.GetHashCode());
 		tipoEnemigos = new List<int>();
+		enemigosSpawneados = new List<int>();
 
 		newRound ();
 	}
 
 	void newRound(){
-		currentRound++;
 		enemigosEliminados = 0;
+		currentRound++;
+		nuevaRonda = false;
 		ClearSpawnPoints ();
 		minNumberSpawns = currentRound / 20;
 		maxNumberSpawns = currentRound / 15 + 3;
@@ -74,6 +77,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void CalcularEnemigos(){
+		tipoEnemigos.Clear ();
+		tipoEnemigos.AddRange(enemigosSpawneados);
+		enemigosSpawneados.Clear ();
 		if (tipoEnemigos.Count < enemigosTotales) {
 			for(int i = tipoEnemigos.Count; i< enemigosTotales; i++){
 				tipoEnemigos.Add(1);
@@ -94,7 +100,7 @@ public class GameManager : MonoBehaviour {
 				int pos = randomNumber.Next (0, tipoEnemigos.Count);
 				while(tipoEnemigos [pos] == 1)
 					pos = randomNumber.Next (0, tipoEnemigos.Count);
-				tipoEnemigos [pos] ++;
+				tipoEnemigos [pos] --;
 			}
 		}
 		tipoEnemigos.Sort ();
@@ -115,32 +121,38 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (enemigosEliminados == enemigosTotales) {
-			newRound ();
+		if ( enemigosEliminados == enemigosTotales && !nuevaRonda ) {
+			//Aparece la tienda en el centro del mapa
+			nuevaRonda = true;
+			Invoke("newRound", 5);
+			//newRound ();
 		}
 	}
 
 	void CrearEnemigos(){
-		if (enemigosRestantes == 0) {
+		if ( tipoEnemigos.Count == 0) {
 			CancelInvoke();
 			return;
 		}
-		int pos = tipoEnemigos.Count - enemigosRestantes;
-		if (enemigosRestantes >= 5) {						//Prueba con oleadas fijas, de 5 naves
+		int pos = randomNumber.Next (0, tipoEnemigos.Count);
+		if (enemigosRestantes >= 5 && tipoEnemigos.Count - pos >=5) {						//Prueba con oleadas fijas, de 5 naves
 			bool spawnOleada = true;
-			for (int i = 1; i < 5 && spawnOleada; i++) {
-			
+			for (int i = 1; i < 5 && spawnOleada; i++) {	//Comprobar si los siguientes enemigos son del mismo tipo que el actual
 				if (tipoEnemigos [pos] != tipoEnemigos [pos + i])
 					spawnOleada = false;
 			}
 			if (spawnOleada) {
-				//StartCoroutine("SpawnearOleada", pos);
 				SpawnearOleada(pos);
+				for (int i = 0; i < 5 ; i++)
+					enemigosSpawneados.Add(tipoEnemigos [pos]);
+				tipoEnemigos.RemoveRange(pos,5);
 				return;
 			}
 		}
 
 		GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[pos]);
+		enemigosSpawneados.Add (tipoEnemigos [pos]);
+		tipoEnemigos.RemoveAt (pos);
 		if (enemy == null)
 			return;
 
@@ -183,7 +195,7 @@ public class GameManager : MonoBehaviour {
 	bool ComprobarSpawn(int i){
 		Vector2 max = PlayerController.current.max;
 		Vector2 min = PlayerController.current.min;
-		comprobarPos = spawnPoints [i].position;
+		Vector2 comprobarPos = spawnPoints [i].position;
 		if (comprobarPos.x >= min.x && comprobarPos.y >= min.y && comprobarPos.x <= max.x && comprobarPos.y <= max.y) {
 			return true;
 		}

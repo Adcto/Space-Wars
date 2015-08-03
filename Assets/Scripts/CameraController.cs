@@ -73,10 +73,10 @@ public class CameraController : MonoBehaviour {
 		transform.position = new Vector3 (Mathf.Clamp (nextPos.x, minPos.x, maxPos.x), Mathf.Clamp (nextPos.y,minPos.y, maxPos.y),-10);
 	}
 	
-	void OnDrawGizmos() {
-		Gizmos.color = new Color (1, 0, 0, .5f);
-		Gizmos.DrawCube (focusArea.centre, focusAreaSize);
-	}
+//	void OnDrawGizmos() {
+//		Gizmos.color = new Color (1, 0, 0, .5f);
+//		Gizmos.DrawCube (focusArea.centre, focusAreaSize);
+//	}
 	
 	struct FocusArea {
 		public Vector2 centre;
