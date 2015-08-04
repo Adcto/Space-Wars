@@ -5,6 +5,8 @@ public class OpenTienda : MonoBehaviour {
 
 	public MenuManager menu;
 	public Menu tienda;
+	public float tiempoEntrada = 2;
+	private float time = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -16,13 +18,20 @@ public class OpenTienda : MonoBehaviour {
 		
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
+
+
+	void OnTriggerStay2D(Collider2D other){
 		if (other.tag == "Player") {
-			Debug.Log("Entrando en la tienda");
-			gameObject.SetActive(false);
-			menu.ShowMenu(tienda);
-			Time.timeScale = 0;
+			time+=Time.fixedDeltaTime;
+			if(time >= tiempoEntrada){
+				time = 0;
+				Debug.Log("Entrando en la tienda");
+				gameObject.SetActive(false);
+				menu.ShowMenu(tienda);
+				Time.timeScale = 0;
+			}
 		}
 	}
+
 }
 

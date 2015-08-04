@@ -73,10 +73,14 @@ public class GameManager : MonoBehaviour {
 		CalcularEnemigos ();
 
 		enemigosRestantes = enemigosTotales;
+		cd_enemigos =  (currentRound - 0.5f) / currentRound; // yo k se teteeee
 		InvokeRepeating ("CrearEnemigos", cd_enemigos, cd_enemigos);
 	}
 
 	void CalcularEnemigos(){
+		//Quizas habria que cambiarlo de modo que valorEnemigo/enemigosTotales, y hacer que el entero resultante sea el valor 
+		//del mayor numero de enemigos esa ronda, para asi diferenciar mas las rondas entre si y las oleadas
+
 		tipoEnemigos.Clear ();
 		tipoEnemigos.AddRange(enemigosSpawneados);
 		enemigosSpawneados.Clear ();

@@ -3732,6 +3732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 400484619}
   tienda: {fileID: 1779060407}
+  tiempoEntrada: 2
 --- !u!58 &1175308876
 CircleCollider2D:
   m_ObjectHideFlags: 0

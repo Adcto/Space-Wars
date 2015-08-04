@@ -33,8 +33,14 @@ public class Disparo : MonoBehaviour {
 	}
 
 	void Desactivate(){
-		if(gameObject.activeInHierarchy)
+		if (gameObject.activeInHierarchy) {
+			if (padre != null) {
+				padre.Desactivar ();
+				transform.localPosition = startPos;
+				transform.localRotation = startRot;
+			}
 			gameObject.SetActive (false);
+		}
 	}
 
 	// Update is called once per frame
@@ -45,20 +51,16 @@ public class Disparo : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other){
 		if (other.gameObject.tag == "Enemy") {
 			other.gameObject.GetComponent<EnemyController>().currentHealth-=damage;
-			gameObject.SetActive(false);	
+			CancelInvoke();
+			Desactivate();
+
 		}
 	}
 
 	void OnBecameInvisible(){
-		gameObject.SetActive(false);
-	}
-
-	void OnDisable(){
-		if (padre != null) {
-			padre.Desactivar ();
-			transform.localPosition = startPos;
-			transform.localRotation = startRot;
-		}
 		CancelInvoke ();
+		Desactivate ();
+		
 	}
+	
 }

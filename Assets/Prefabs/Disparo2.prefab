@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
+  dispersion: 5
 --- !u!212 &21235394
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -271,6 +272,10 @@ Prefab:
       propertyPath: padre
       value: 
       objectReference: {fileID: 11429046}
+    - target: {fileID: 0}
+      propertyPath: dispersion
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 180790}
