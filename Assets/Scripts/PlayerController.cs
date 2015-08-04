@@ -71,13 +71,16 @@ public class PlayerController : MonoBehaviour {
 		GameObject shoot = Pool.current.Disparar ();
 		shoot.transform.position = posicionDisparo.position;
 		shoot.transform.rotation = transform.rotation;
-		float desviacion = Random.Range (-5f, 5f);
-
-
-		Vector3 dir = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,0,90+desviacion)) *  new Vector3(1,0.0f,0.0f);
-		//float shootAngle = shoot.transform.rotation.eulerAngles.z;
-		shoot.GetComponent<Disparo> ().direction = (Vector2)dir.normalized;
+//		float desviacion = Random.Range (-5f, 5f);
+//
+//
+//		Vector3 dir = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,0,90+desviacion)) *  new Vector3(1,0.0f,0.0f);
+//		//float shootAngle = shoot.transform.rotation.eulerAngles.z;
+//		shoot.GetComponent<Disparo> ().direction = (Vector2)dir.normalized;
 		//shoot.GetComponent<Disparo> ().direction = new Vector2 (Mathf.Cos (shootAngle), Mathf.Sin (shootAngle));
+		for (int i = 0; i < shoot.transform.childCount; i++) {
+			shoot.transform.GetChild(i).gameObject.layer = gameObject.layer;
+		}
 		shoot.layer = gameObject.layer;
 		shoot.SetActive (true);
 	}

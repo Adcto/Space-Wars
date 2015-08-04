@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void newRound(){
+		if (Tienda.activeInHierarchy)
+			Tienda.SetActive (false);
 		currentRound++;
 		ClearSpawnPoints ();
 		minNumberSpawns = currentRound / 20;

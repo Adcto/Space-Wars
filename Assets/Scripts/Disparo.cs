@@ -7,15 +7,29 @@ public class Disparo : MonoBehaviour {
 	public float cadencia = 0.08f;
 	public float damage = 10;
 	public Vector2 direction;
+	public float dispersion;
+	public DesactivarEmpty padre;
+	private Vector3 startPos;
+	private Quaternion startRot;
 	private Rigidbody2D rig;
 
 	// Use this for initialization
 	void Start () {
 		rig = GetComponent<Rigidbody2D> ();
+
+
 	}
 
 	void OnEnable(){
-		Invoke ("Desactivate", 2);
+		startPos = transform.localPosition;
+		startRot = transform.localRotation;
+		Invoke ("Desactivate", 1.5f);
+		float desviacion = 0;
+		if (dispersion >0) {
+			desviacion = Random.Range (-dispersion, dispersion);
+		}
+		Vector3 dir = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,0,90+desviacion)) *  new Vector3(1,0.0f,0.0f);
+		direction = (Vector2) dir.normalized;
 	}
 
 	void Desactivate(){
@@ -40,6 +54,11 @@ public class Disparo : MonoBehaviour {
 	}
 
 	void OnDisable(){
+		if (padre != null) {
+			padre.Desactivar ();
+			transform.localPosition = startPos;
+			transform.localRotation = startRot;
+		}
 		CancelInvoke ();
 	}
 }

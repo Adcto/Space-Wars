@@ -1636,7 +1636,7 @@ MonoBehaviour:
   Enemigos3: []
   Enemigos4: []
   Explosiones: []
-  disparo: {fileID: 197566, guid: eb96fb6b926003f4da3da26b8e75800d, type: 2}
+  disparo: {fileID: 107238, guid: edf8c7eb30f93a7479f25204f39c71bb, type: 2}
   enemigo_basico: {fileID: 139324, guid: 432093bd183e9c446a6907d7c3246d6e, type: 2}
   enemigo_2: {fileID: 190660, guid: 870802925decceb42b803502c72a0eea, type: 2}
   enemigo_3: {fileID: 125978, guid: 586fb4c84711e67488dedf08ac403f1c, type: 2}
@@ -3095,8 +3095,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -180, y: 12.5}
-  m_SizeDelta: {x: -460, y: -225}
+  m_AnchoredPosition: {x: -160, y: 12.5}
+  m_SizeDelta: {x: -420, y: -225}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &889439143
 MonoBehaviour:
@@ -3142,7 +3142,7 @@ MonoBehaviour:
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 3
-  m_Spacing: 40
+  m_Spacing: 25
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
 --- !u!1 &925689515
@@ -3256,8 +3256,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 320, y: 12.5}
-  m_SizeDelta: {x: -720, y: -225}
+  m_AnchoredPosition: {x: 290, y: 12.5}
+  m_SizeDelta: {x: -660, y: -225}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &947000218
 MonoBehaviour:
@@ -3303,7 +3303,7 @@ MonoBehaviour:
     m_Top: 15
     m_Bottom: 15
   m_ChildAlignment: 3
-  m_Spacing: 40
+  m_Spacing: 25
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
 --- !u!1001 &962618783
@@ -3355,7 +3355,7 @@ Prefab:
       objectReference: {fileID: 534703320}
     - target: {fileID: 450164, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 423192, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: m_RootOrder
@@ -3379,7 +3379,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 450164, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .127800003
+      value: .119999997
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75935783935f2da4da480831970088fd, type: 2}
@@ -3884,7 +3884,8 @@ MonoBehaviour:
         m_MethodName: CambiarDisparo
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgument: {fileID: 107238, guid: edf8c7eb30f93a7479f25204f39c71bb,
+            type: 2}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -4281,7 +4282,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Vacio
+  m_Text: Triple Disparo
 --- !u!222 &1478197390
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4590,7 +4591,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -100, y: -80}
+  m_SizeDelta: {x: -200, y: -200}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1760924628
 MonoBehaviour:
@@ -4652,7 +4653,7 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -860}
+  m_AnchoredPosition: {x: 0, y: -828}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1779060407
@@ -4674,7 +4675,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1779060405}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

@@ -67,8 +67,14 @@ public class Pool : MonoBehaviour {
 			go.SetActive(false);
 			Disparos.Add(go);
 		}
-		PlayerController.current.cadenciaDisparo = Disparos[0].GetComponent<Disparo>().cadencia;
-	
+
+		float cadencia = Disparos [0].GetComponentsInChildren<Disparo> (true)[0].cadencia;
+
+//		if (Disparos [0].transform.childCount > 0)
+//			cadencia = Disparos [0].GetComponentInChildren<Disparo> ().cadencia;
+//		else 
+//			cadencia = Disparos [0].GetComponent<Disparo> ().cadencia;
+		PlayerController.current.cadenciaDisparo =cadencia;
 	}
 
 	public GameObject Disparar(){
@@ -78,6 +84,7 @@ public class Pool : MonoBehaviour {
 		}
 		//si no existe, se crea otro
 		GameObject go = (GameObject) Instantiate(disparo);
+		go.SetActive (false);
 		Disparos.Add(go);
 		//numDisparos++;
 		return go;
