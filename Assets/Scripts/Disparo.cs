@@ -14,6 +14,15 @@ public class Disparo : MonoBehaviour {
 		rig = GetComponent<Rigidbody2D> ();
 	}
 
+	void OnEnable(){
+		Invoke ("Desactivate", 2);
+	}
+
+	void Desactivate(){
+		if(gameObject.activeInHierarchy)
+			gameObject.SetActive (false);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		rig.velocity = direction * speed;
@@ -28,5 +37,9 @@ public class Disparo : MonoBehaviour {
 
 	void OnBecameInvisible(){
 		gameObject.SetActive(false);
+	}
+
+	void OnDisable(){
+		CancelInvoke ();
 	}
 }

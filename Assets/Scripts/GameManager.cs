@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 	public int enemigosEliminados = 0;
 	public List<int> tipoEnemigos;
 	public List<int> enemigosSpawneados;
-	private bool nuevaRonda = false;
+	public GameObject Tienda;
 
 	void Awake(){
 		current = this;
@@ -49,9 +49,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void newRound(){
-		enemigosEliminados = 0;
 		currentRound++;
-		nuevaRonda = false;
 		ClearSpawnPoints ();
 		minNumberSpawns = currentRound / 20;
 		maxNumberSpawns = currentRound / 15 + 3;
@@ -121,9 +119,9 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if ( enemigosEliminados == enemigosTotales && !nuevaRonda ) {
-			//Aparece la tienda en el centro del mapa
-			nuevaRonda = true;
+		if ( enemigosEliminados == enemigosTotales ) {
+			enemigosEliminados = 0;
+			Tienda.SetActive(true);
 			Invoke("newRound", 5);
 			//newRound ();
 		}

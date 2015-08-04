@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Disparo
+  - Player
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,13 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 2389152059
+    locked: 0
+  - name: Enemy
+    uniqueID: 3955835317
+    locked: 0
+  - name: Player
+    uniqueID: 503917049
+    locked: 0
+  - name: UI
+    uniqueID: 824972077
     locked: 0

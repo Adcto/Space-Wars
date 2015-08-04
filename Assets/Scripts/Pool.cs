@@ -11,25 +11,18 @@ public class Pool : MonoBehaviour {
 	public List<GameObject> Enemigos3;
 	public List<GameObject> Enemigos4;
 	public List<GameObject> Explosiones;
-	public GameObject disparo_basico;
+	public GameObject disparo;
 	public GameObject enemigo_basico;
 	public GameObject enemigo_2;
 	public GameObject enemigo_3;
 	public GameObject enemigo_4;
 	public int numDisparos = 10;
-	[HideInInspector]public float cadenciaDisparo;
 	public int numEnemigos = 10;
 	public bool aumentar_enemigos = false;	
 
 	void Awake(){
 		current = this;
 		Disparos = new List<GameObject> ();
-		for (int i = 0; i < numDisparos; i++) {
-			GameObject go = (GameObject) Instantiate(disparo_basico);
-			go.SetActive(false);
-			Disparos.Add(go);
-		}
-		cadenciaDisparo = Disparos[0].GetComponent<Disparo>().cadencia;
 
 		Enemigos1 = new List<GameObject> ();
 		for (int i = 0; i < numEnemigos; i++) {
@@ -61,16 +54,30 @@ public class Pool : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		EquiparDisparos ();
 	}
+
+	public void EquiparDisparos(){
+		for (int i = 0; i<Disparos.Count; i++) {
+			Destroy(Disparos[i]);
+		}
+		Disparos.Clear ();
+		for (int i = 0; i < numDisparos; i++) {
+			GameObject go = (GameObject) Instantiate(disparo);
+			go.SetActive(false);
+			Disparos.Add(go);
+		}
+		PlayerController.current.cadenciaDisparo = Disparos[0].GetComponent<Disparo>().cadencia;
 	
+	}
+
 	public GameObject Disparar(){
 		for (int i = 0; i<Disparos.Count; i++) {
 			if(!Disparos[i].activeInHierarchy)
 				return Disparos[i];
 		}
 		//si no existe, se crea otro
-		GameObject go = (GameObject) Instantiate(disparo_basico);
+		GameObject go = (GameObject) Instantiate(disparo);
 		Disparos.Add(go);
 		//numDisparos++;
 		return go;

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Start () {
-		cadenciaDisparo = Pool.current.cadenciaDisparo; //Habra q actualizarla cuando se cambie de disparo
+//		cadenciaDisparo = Pool.current.cadenciaDisparo; //Habra q actualizarla cuando se cambie de disparo
 		currentHealth = maxHealth;
 		rig = GetComponent<Rigidbody2D> ();
 		collider = GetComponent<Collider2D> ();
