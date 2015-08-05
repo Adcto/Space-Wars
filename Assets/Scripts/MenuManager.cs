@@ -44,42 +44,48 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void GastarGemas(int valor){
+		pagarGemas = valor;
 		if (comprar) {
 			comprar = false;
 			//gemas-=valor (if >=0) --> equipar
 			equipar = true;
-		} else {
-			pagarGemas = valor;
-		}
+		} 
 	}
 	public void GastarOro(int valor){
+		pagarOro = valor;
 		if (comprar) {
 			comprar = false;
 			//oro -=valor (if >=0) --> equipar
 			equipar = true;
-		} else {
-			pagarOro = valor;
-		}
+		} 
 	}
 
 	public void CambiarDisparo(GameObject disparo){
 		if (equipar) {
 			equipar = false;
-			Pool.current.disparo = disparo;
-			Pool.current.EquiparDisparos ();
+			if(disparo != Pool.current.disparo){
+				pagarOro = pagarGemas = 0;
+				Pool.current.disparo = disparo;
+				Pool.current.EquiparDisparos ();
+			}
+			else {
+				//oro o gemas += pagarOro o pagarGemas; Reembolsar el pago xk el objeto es el mismo!!
+			}
 		} else {
-			//En caso de haber mas tipos de objetos, el resto se convierten en null!!!!
+			//En caso de haber mas tipos de objetos (variables), que no sean disparos, el resto se convierten en null!!!!
 			disparoEquipable = disparo;
 		}
 	}
 	public void Comprar(){
 		if (disparoEquipable != null) {
-			comprar = true;
-			if(pagarOro > 0)
-				GastarOro(pagarOro);
-			else 
-				GastarGemas(pagarGemas);
-			CambiarDisparo(disparoEquipable);
+			if(disparoEquipable != Pool.current.disparo){
+				comprar = true;
+				if(pagarOro > 0)
+					GastarOro(pagarOro);
+				else 
+					GastarGemas(pagarGemas);
+				CambiarDisparo(disparoEquipable);
+			}
 		}
 	}
 
