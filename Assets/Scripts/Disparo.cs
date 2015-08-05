@@ -12,6 +12,7 @@ public class Disparo : MonoBehaviour {
 	private Vector3 startPos;
 	private Quaternion startRot;
 	private Rigidbody2D rig;
+	public float TimeToDestroy = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -23,7 +24,7 @@ public class Disparo : MonoBehaviour {
 	void OnEnable(){
 		startPos = transform.localPosition;
 		startRot = transform.localRotation;
-		Invoke ("Desactivate", 1.5f);
+		Invoke ("Desactivate", TimeToDestroy);
 		float desviacion = 0;
 		if (dispersion >0) {
 			desviacion = Random.Range (-dispersion, dispersion);

@@ -1636,7 +1636,7 @@ MonoBehaviour:
   Enemigos3: []
   Enemigos4: []
   Explosiones: []
-  disparo: {fileID: 107238, guid: edf8c7eb30f93a7479f25204f39c71bb, type: 2}
+  disparo: {fileID: 128724, guid: f844c06d2b359654ba705a1331f6119f, type: 2}
   enemigo_basico: {fileID: 139324, guid: 432093bd183e9c446a6907d7c3246d6e, type: 2}
   enemigo_2: {fileID: 190660, guid: 870802925decceb42b803502c72a0eea, type: 2}
   enemigo_3: {fileID: 125978, guid: 586fb4c84711e67488dedf08ac403f1c, type: 2}
