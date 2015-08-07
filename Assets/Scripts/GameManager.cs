@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
 		enemigosTotales += randomNumber.Next (0, 2);
 		if (currentRound == 1) {
 			for(int i = 0; i< enemigosTotales; i++){
-				tipoEnemigos.Add(1);
+				enemigosSpawneados.Add(1);
 			}
 		}
 
@@ -85,7 +85,6 @@ public class GameManager : MonoBehaviour {
 		//Quizas habria que cambiarlo de modo que valorEnemigo/enemigosTotales, y hacer que el entero resultante sea el valor 
 		//del mayor numero de enemigos esa ronda, para asi diferenciar mas las rondas entre si y las oleadas
 
-		tipoEnemigos.Clear ();
 		tipoEnemigos.AddRange(enemigosSpawneados);
 		enemigosSpawneados.Clear ();
 		if (tipoEnemigos.Count < enemigosTotales) {

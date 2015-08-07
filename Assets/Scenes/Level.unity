@@ -1626,7 +1626,7 @@ MonoBehaviour:
   EnemigosRecto: []
   ExplosionesDisparos: []
   ExplosionesEnemigos: []
-  disparo: {fileID: 180790, guid: 381a1274b1e0f2243a907c2797f87d3e, type: 2}
+  disparo: {fileID: 128808, guid: c3145c4d405209142bd6cecea49f9b52, type: 2}
   enemigo_basico: {fileID: 139324, guid: 432093bd183e9c446a6907d7c3246d6e, type: 2}
   enemigo_2: {fileID: 190660, guid: 870802925decceb42b803502c72a0eea, type: 2}
   enemigo_3: {fileID: 125978, guid: 586fb4c84711e67488dedf08ac403f1c, type: 2}
@@ -1671,7 +1671,7 @@ MonoBehaviour:
   currentRound: 6
   enemigosTotales: 30
   maxEnemigosSimultaneos: 25
-  valorEnemigos: 160
+  valorEnemigos: 30
   enemigosEliminados: 0
   tipoEnemigos: 
   enemigosSpawneados: 

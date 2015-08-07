@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	public Collider2D collider;
 	public Vector2 direction;
 	public ParticleSystem rastro;
+	private int curvo = 1;
 
 	// Use this for initialization
 	void Awake(){
@@ -78,7 +79,16 @@ public class PlayerController : MonoBehaviour {
 //		//float shootAngle = shoot.transform.rotation.eulerAngles.z;
 //		shoot.GetComponent<Disparo> ().direction = (Vector2)dir.normalized;
 		//shoot.GetComponent<Disparo> ().direction = new Vector2 (Mathf.Cos (shootAngle), Mathf.Sin (shootAngle));
+		curvo *= -1;
+		DisparoCurvo disp = shoot.GetComponent<DisparoCurvo>();
+		if( disp != null){
+			disp.sentido = curvo;
+		}
+		DisparoCurvo[] disps = shoot.GetComponentsInChildren<DisparoCurvo> ();
 		for (int i = 0; i < shoot.transform.childCount; i++) {
+			if( disps[i] != null){
+				disps[i].sentido = curvo;
+			}
 			shoot.transform.GetChild(i).gameObject.layer = gameObject.layer;
 		}
 		shoot.layer = gameObject.layer;
