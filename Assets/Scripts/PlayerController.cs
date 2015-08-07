@@ -80,17 +80,22 @@ public class PlayerController : MonoBehaviour {
 //		shoot.GetComponent<Disparo> ().direction = (Vector2)dir.normalized;
 		//shoot.GetComponent<Disparo> ().direction = new Vector2 (Mathf.Cos (shootAngle), Mathf.Sin (shootAngle));
 		curvo *= -1;
-		DisparoCurvo disp = shoot.GetComponent<DisparoCurvo>();
-		if( disp != null){
-			disp.sentido = curvo;
-		}
-		DisparoCurvo[] disps = shoot.GetComponentsInChildren<DisparoCurvo> ();
-		for (int i = 0; i < shoot.transform.childCount; i++) {
-			if( disps[i] != null){
-				disps[i].sentido = curvo;
+		if (transform.childCount > 0) {
+			DisparoCurvo[] disps = shoot.GetComponentsInChildren<DisparoCurvo> ();
+			for (int i = 0; i < shoot.transform.childCount; i++) {
+				if( disps[i] != null){
+					disps[i].sentido = curvo;
+				}
+				shoot.transform.GetChild(i).gameObject.layer = gameObject.layer;
 			}
-			shoot.transform.GetChild(i).gameObject.layer = gameObject.layer;
+		} else {
+			DisparoCurvo disp = shoot.GetComponent<DisparoCurvo>();
+			if( disp != null){
+				disp.sentido = curvo;
+			}
 		}
+
+
 		shoot.layer = gameObject.layer;
 		shoot.SetActive (true);
 	}
