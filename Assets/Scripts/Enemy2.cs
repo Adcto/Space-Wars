@@ -7,6 +7,8 @@ public class Enemy2 : EnemyController {
 	//public List<Vector2> nextPositions;
 	public Vector2 nextPosition;
 	private int currentPosition = 0;
+	private Vector3 prevPos;
+	private bool quieto = false;
 	// Use this for initialization
 //	public override void Start () {
 //		nextPositions = new List<Vector2> ();
@@ -19,28 +21,42 @@ public class Enemy2 : EnemyController {
 
 	public override void OnEnable(){
 		currentPosition = 0;
-		nextPosition = transPositions[currentPosition].position;
+		nextPosition = transPositions[0].position;
+		prevPos = Vector3.forward;
+		quieto = false;
 		base.OnEnable (); //reset hp
 	}
 
 	public override Vector3 NextPos(){
+		if (transform.position != prevPos)
+			quieto = false;
+
+		if (Vector2.Distance (nextPosition, (Vector2)transform.position) > Vector2.Distance ((Vector2)PlayerController.current.transform.position, (Vector2)transform.position))
+			return (Vector2)PlayerController.current.transform.position;
 
 		//si has llegado a la nueva posicion, siguiente
-		if (Vector2.Distance (nextPosition, (Vector2)transform.position) <= Vector2.kEpsilon) {
+		if (Vector2.Distance (nextPosition, (Vector2)transform.position) <= Vector2.kEpsilon || hit || quieto) {
+			if(hit) 
+				hit = false;
 			currentPosition++;
 			if (currentPosition >= transPositions.Count)
 				currentPosition = 0;
 			nextPosition = transPositions[currentPosition].position;
 		}
 
-		if (Vector2.Distance (nextPosition, (Vector2)transform.position) > Vector2.Distance ((Vector2)PlayerController.current.transform.position, (Vector2)transform.position))
-			nextPosition = (Vector2)PlayerController.current.transform.position;
+		if (transform.position == prevPos)
+			quieto = true;
+
+
+
+
+
+		prevPos = transform.position;
 
 		//si has recorrido todas las posiciones, actualiza
 //		if (currentPosition >= transPositions.Count) {	
 //			ActualizarPosiciones();
 //		}
-
 		//siguiente posicion
 		return nextPosition;	
 	}
@@ -52,6 +68,12 @@ public class Enemy2 : EnemyController {
 //			nextPositions.Add (pos.position);
 //		}
 //	}
+
+	void OnCollisionEnter2D(Collision2D other){
+		if (other.gameObject.tag == "Finish") {
+			hit = true;
+		}
+	}
 
 
 

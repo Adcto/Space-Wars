@@ -3,14 +3,16 @@ using System.Collections;
 
 public class Disparo : MonoBehaviour {
 
+	public int invertido =1;
 	public float speed;
 	public float cadencia = 0.08f;
-	public float damage = 10;
+	public int damage = 10;
 	public Vector2 direction;
 	public float dispersion;
 	public DesactivarEmpty padre;
-	private Vector3 startPos;
-	private Quaternion startRot;
+	protected Vector3 startPos;
+	protected Quaternion startRot;
+	protected float desviacion;
 	private Rigidbody2D rig;
 	public float TimeToDestroy = 1;
 
@@ -21,19 +23,20 @@ public class Disparo : MonoBehaviour {
 
 	}
 
-	void OnEnable(){
+	public virtual void OnEnable(){
 		startPos = transform.localPosition;
 		startRot = transform.localRotation;
 		Invoke ("Desactivate", TimeToDestroy);
-		float desviacion = 0;
+		desviacion = 0;
 		if (dispersion >0) {
 			desviacion = Random.Range (-dispersion, dispersion);
 		}
-		Vector3 dir = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,0,90+desviacion)) *  new Vector3(1,0.0f,0.0f);
+		Vector3 dir = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0,0,90+desviacion)) *  new Vector3(invertido,0.0f,0.0f);
 		direction = (Vector2) dir.normalized;
 	}
 
 	void Desactivate(){
+		CancelInvoke ();
 		if (gameObject.activeInHierarchy) {
 			if (padre != null) {
 				padre.Desactivar ();
@@ -45,23 +48,28 @@ public class Disparo : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	public virtual void FixedUpdate(){
 		rig.velocity = direction * speed;
 	}
 
 	void OnCollisionEnter2D(Collision2D other){
-		if (other.gameObject.tag == "Enemy") {
-			other.gameObject.GetComponent<EnemyController>().currentHealth-=damage;
-			CancelInvoke();
-			Desactivate();
+		if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Finish" ) {
+			GameObject go = Pool.current.Crear_Hit_Disparo();
+			go.transform.position = transform.position;
+			go.transform.rotation = transform.rotation;
+			go.SetActive(true);
+			if(other.gameObject.tag == "Enemy")
+				other.gameObject.GetComponent<EnemyController>().QuitarVida(damage);
 
+			Desactivate();
 		}
 	}
 
 	void OnBecameInvisible(){
-		CancelInvoke ();
 		Desactivate ();
-		
+	}
+	void OnDisable(){
+		CancelInvoke ();
 	}
 	
 }

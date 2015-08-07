@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public float currentHealth;
 	public bool puedeDisparar = false;
 	public float cadenciaDisparo;
-	public Vector3 max,min;
+	//public Vector3 max,min;
 	//skill1,skill2
 	public float angle;
 	public float speed = 2f;
@@ -60,9 +60,9 @@ public class PlayerController : MonoBehaviour {
 		else if (rig.velocity != Vector2.zero && rastro.isStopped)
 			rastro.Play ();
 
-		float x = Mathf.Clamp (transform.position.x, min.x, max.x);
-		float y = Mathf.Clamp (transform.position.y, min.y,max.y);
-		transform.position = new Vector2 (x, y);
+		//float x = Mathf.Clamp (transform.position.x, min.x, max.x);
+		//float y = Mathf.Clamp (transform.position.y, min.y,max.y);
+		//transform.position = new Vector2 (x, y);
 		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0, 0, angle), 540 * Time.deltaTime); // Giro con delay
 		//rig.MoveRotation(angle); //Giro Instantaneo
 	}
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour {
 			currentHealth--;
 			//transform.position = Vector2.zero;
 
-			other.gameObject.GetComponent<EnemyController>().currentHealth=0;
+			other.gameObject.GetComponent<EnemyController>().QuitarVida(-1);
 		}
 	}
 }

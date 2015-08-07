@@ -42,6 +42,7 @@ GameObject:
   - 50: {fileID: 5006862}
   - 58: {fileID: 5890958}
   - 114: {fileID: 11470386}
+  - 95: {fileID: 9532480}
   m_Layer: 9
   m_Name: Enemigo_4
   m_TagString: Enemy
@@ -201,6 +202,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: .100000001
+--- !u!95 &9532480
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123554}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1efc56669208c3c42ab3532cb031e89f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &11470386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,11 +230,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4377df6d37648ac4d8d7def6e9b46c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  healthBase: 50
+  maxHealth: 0
   currentHealth: 0
   speed: 6
   rotationTime: 1080
   score: 40
+  calidad: 1
   transPositions:
   - {fileID: 494474}
   - {fileID: 473540}
@@ -301,6 +321,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SortingLayerID
       value: -339131979
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: healthBase
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -25,11 +25,14 @@ public class GameManager : MonoBehaviour {
 	public int currentRound;
 	private int enemigosRestantes;
 	public int enemigosTotales;
+	public int maxEnemigosSimultaneos = 5;
 	public int valorEnemigos;
 	public int enemigosEliminados = 0;
 	public List<int> tipoEnemigos;
 	public List<int> enemigosSpawneados;
 	public GameObject Tienda;
+	public Vector2 max, min;
+	private int spawnAgujero = 4;
 
 	void Awake(){
 		current = this;
@@ -44,14 +47,15 @@ public class GameManager : MonoBehaviour {
 		randomNumber = new System.Random (seed.GetHashCode());
 		tipoEnemigos = new List<int>();
 		enemigosSpawneados = new List<int>();
-
 		newRound ();
 	}
 
 	void newRound(){
-		if (Tienda.activeInHierarchy)
-			Tienda.SetActive (false);
 		currentRound++;
+		if (currentRound % 3 == 0) {
+			maxEnemigosSimultaneos++;
+		}
+
 		ClearSpawnPoints ();
 		minNumberSpawns = currentRound / 20;
 		maxNumberSpawns = currentRound / 15 + 3;
@@ -61,8 +65,8 @@ public class GameManager : MonoBehaviour {
 		for(int i = 0; i< newSpawns;i++)
 			CreateNewSpawnPoints ();
 
-		valorEnemigos += randomNumber.Next (1, 4);
-		enemigosTotales += randomNumber.Next (0, 3);
+		valorEnemigos += randomNumber.Next (2, 5);
+		enemigosTotales += randomNumber.Next (0, 2);
 		if (currentRound == 1) {
 			for(int i = 0; i< enemigosTotales; i++){
 				tipoEnemigos.Add(1);
@@ -73,7 +77,7 @@ public class GameManager : MonoBehaviour {
 		CalcularEnemigos ();
 
 		enemigosRestantes = enemigosTotales;
-		cd_enemigos =  (currentRound - 0.5f) / currentRound; // yo k se teteeee
+		cd_enemigos =  0.2f + 2 / ((float)currentRound +1); // yo k se teteeee
 		InvokeRepeating ("CrearEnemigos", cd_enemigos, cd_enemigos);
 	}
 
@@ -129,17 +133,43 @@ public class GameManager : MonoBehaviour {
 			enemigosEliminados = 0;
 			Tienda.SetActive(true);
 			Invoke("newRound", 5);
-			//newRound ();
 		}
 	}
 
 	void CrearEnemigos(){
 		if ( tipoEnemigos.Count == 0) {
-			CancelInvoke();
+			CancelInvoke("CrearEnemigos");
 			return;
 		}
+
+		//No sobrecargar la pantalla de enemigos!
+		if (enemigosSpawneados.Count - enemigosEliminados >= maxEnemigosSimultaneos)
+			return;
+
+
 		int pos = randomNumber.Next (0, tipoEnemigos.Count);
-		if (enemigosRestantes >= 5 && tipoEnemigos.Count - pos >=5) {						//Prueba con oleadas fijas, de 5 naves
+		int spawnPos = randomNumber.Next (0, spawnPoints.Count);
+
+		if (tipoEnemigos [pos] % Pool.current.tiposEnemigos == 0) {
+
+			GameObject agujero = Pool.current.Crear_Enemigo (tipoEnemigos[pos]);
+			if(agujero != null){
+				enemigosSpawneados.Add (tipoEnemigos [pos]);
+				tipoEnemigos.RemoveAt (pos);
+				agujero.transform.position = spawnPoints[spawnAgujero].position;
+				agujero.SetActive (true);
+				enemigosRestantes--;
+				spawnAgujero++;
+				if(spawnAgujero == 8)
+					spawnAgujero = 4;
+			}
+			return;
+			
+		}
+
+
+
+		if (enemigosRestantes >= 5 && tipoEnemigos.Count - pos >=5 && currentRound > 5) {						//Prueba con oleadas fijas, de 5 naves
 			bool spawnOleada = true;
 			for (int i = 1; i < 5 && spawnOleada; i++) {	//Comprobar si los siguientes enemigos son del mismo tipo que el actual
 				if (tipoEnemigos [pos] != tipoEnemigos [pos + i])
@@ -155,15 +185,36 @@ public class GameManager : MonoBehaviour {
 		}
 
 		GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[pos]);
-		enemigosSpawneados.Add (tipoEnemigos [pos]);
-		tipoEnemigos.RemoveAt (pos);
 		if (enemy == null)
 			return;
+		enemigosSpawneados.Add (tipoEnemigos [pos]);
+		tipoEnemigos.RemoveAt (pos);
+
+
+		if (enemigosSpawneados[enemigosSpawneados.Count-1] % Pool.current.tiposEnemigos == 5) {
+
+			
+			Vector2 dir ;
+			Vector2 posInicial;
+
+			if (randomNumber.Next (0, 2) == 1) {
+				dir = Vector2.up;
+				posInicial = new Vector2 (PlayerController.current.transform.position.x , min.y -1);
+			} else {
+				dir = Vector2.right;
+				posInicial = new Vector2 (min.x-1, PlayerController.current.transform.position.y);
+			}
+			enemy.transform.position =  posInicial;
+			float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg -90;
+			enemy.transform.rotation = Quaternion.Euler(0,0,angle) ;
+			enemy.SetActive (true);
+			return;
+		}
 
 		//0-3, posiciones referentes a la camara
 		//4-7, posiciones esquinas del mapa
 		//8+, posiciones random extra
-		int spawnPos = randomNumber.Next (0, spawnPoints.Count);
+
 
 		while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {			//Si la posicion de spawn es una de las que depende de la camara, esta podria salirse del mapa
 			spawnPos = randomNumber.Next (0, spawnPoints.Count);
@@ -176,29 +227,58 @@ public class GameManager : MonoBehaviour {
 
 	void SpawnearOleada(int pos){
 		enemigosRestantes -= 5;
-		int spawnPos = randomNumber.Next (0, spawnPoints.Count);
-
-		while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {
-			spawnPos = randomNumber.Next (0, spawnPoints.Count);
-		}
 		
 		Vector3 nextPos = Vector3.zero;
-		for (int i = 0; i < 5; i++){
-			GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos[pos]);	//da igual incrementarlo, son el mismo
-			nextPos*=-1;
-			if(i == 1)
-				nextPos = Vector3.right;
-			else if(i==3)
-				nextPos = Vector3.up;
-			enemy.transform.position = spawnPoints[spawnPos].position + nextPos;
-			enemy.SetActive (true);
-			//yield return new WaitForSeconds(0.1f);
+		if (tipoEnemigos [pos] % Pool.current.tiposEnemigos == 5) {
+
+
+
+			Vector2 dir;
+			Vector2 posInicial;
+
+			if(randomNumber.Next(0,1) == 1){
+				dir = Vector2.up;
+				nextPos = Vector2.right;
+				posInicial = new Vector2(PlayerController.current.transform.position.x -2, min.y-1);
+			}
+			else {
+				dir = Vector2.right;
+				nextPos = Vector2.up;
+				posInicial = new Vector2( min.x-1,PlayerController.current.transform.position.y -2);
+			}
+
+
+
+			for (int i = 0; i < 5; i++) {
+				GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos [pos]);	//da igual incrementarlo, son el mismo
+				enemy.transform.position =  (Vector3)posInicial + (nextPos * i);
+				enemy.GetComponent<EnemyRecto>().direction = dir;
+				enemy.SetActive (true);
+				
+			}
+		}
+		else {
+			int spawnPos = randomNumber.Next (0, spawnPoints.Count);
+			
+			while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {
+				spawnPos = randomNumber.Next (0, spawnPoints.Count);
+			}
+			for (int i = 0; i < 5; i++) {
+				GameObject enemy = Pool.current.Crear_Enemigo (tipoEnemigos [pos]);	//da igual incrementarlo, son el mismo
+				nextPos *= -1;
+				if (i == 1)
+					nextPos = Vector3.right;
+				else if (i == 3)
+					nextPos = Vector3.up;
+				
+				enemy.transform.position = spawnPoints [spawnPos].position + nextPos;
+				enemy.SetActive (true);
+				
+			}
 		}
 	}
 
 	bool ComprobarSpawn(int i){
-		Vector2 max = PlayerController.current.max;
-		Vector2 min = PlayerController.current.min;
 		Vector2 comprobarPos = spawnPoints [i].position;
 		if (comprobarPos.x >= min.x && comprobarPos.y >= min.y && comprobarPos.x <= max.x && comprobarPos.y <= max.y) {
 			return true;
@@ -216,8 +296,7 @@ public class GameManager : MonoBehaviour {
 
 	void CreateNewSpawnPoints(){
 
-		Vector2 pos = new Vector2(randomNumber.Next ((int)PlayerController.current.min.x,(int) PlayerController.current.max.x),
-		                          randomNumber.Next ((int)PlayerController.current.min.y, (int) PlayerController.current.max.y) );
+		Vector2 pos = new Vector2(randomNumber.Next ((int)min.x,(int) max.x),randomNumber.Next ((int)min.y, (int) max.y) );
 		GameObject spawn = (GameObject) Instantiate (spawnPref,pos,Quaternion.identity);
 		//spawn.position = pos;
 
