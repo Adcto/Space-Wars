@@ -99,7 +99,11 @@ public class Pool : MonoBehaviour {
 			Disparos.Add(go);
 		}
 
-		float cadencia = Disparos [0].GetComponentsInChildren<Disparo> (true)[0].cadencia;
+		float cadencia;
+		if(Disparos[0].transform.childCount > 0)
+			cadencia =Disparos [0].GetComponent<DesactivarEmpty> ().cadencia;
+		else
+			cadencia =Disparos [0].GetComponent<Disparo> ().cadencia;
 
 //		if (Disparos [0].transform.childCount > 0)
 //			cadencia = Disparos [0].GetComponentInChildren<Disparo> ().cadencia;

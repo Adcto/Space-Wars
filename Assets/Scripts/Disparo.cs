@@ -35,7 +35,7 @@ public class Disparo : MonoBehaviour {
 		direction = (Vector2) dir.normalized;
 	}
 
-	void Desactivate(){
+	public void Desactivate(){
 		CancelInvoke ();
 		if (gameObject.activeInHierarchy) {
 			if (padre != null) {

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 	public static PlayerController current;
 	public Transform posicionDisparo;
-	public Joystick movement;
-	public Joystick aim;
+	//public Joystick movement;
+	//public Joystick aim;
 	public float maxHealth = 10;
 	public float currentHealth;
 	public bool puedeDisparar = false;
@@ -20,7 +21,8 @@ public class PlayerController : MonoBehaviour {
 	public Collider2D collider;
 	public Vector2 direction;
 	public ParticleSystem rastro;
-	private int curvo = 1;
+	public Vector2 aim;
+	private bool apuntando = false;
 
 	// Use this for initialization
 	void Awake(){
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate () {
 		Move ();
 		if (puedeDisparar) {
-			if(aim.touched){					//Solo dispara cuando pulsas el joystick derecho!
+			if(apuntando){					//Solo dispara cuando pulsas el joystick derecho!
 				cooldownDisparo += Time.deltaTime;
 				if(cooldownDisparo >= cadenciaDisparo){
 					cooldownDisparo = 0;
@@ -52,9 +54,17 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void Move(){
-		direction = movement.GetDirection ();
-		angle = aim.GetAngle ();
-
+		//direction = movement.GetDirection ();
+		//angle = aim.GetAngle ();
+		direction = new Vector2(CrossPlatformInputManager.GetAxis("HorizontalMovement"), CrossPlatformInputManager.GetAxis("VerticalMovement"));
+		aim = new Vector2(CrossPlatformInputManager.GetAxis("HorizontalAim"), CrossPlatformInputManager.GetAxis("VerticalAim"));
+		aim = aim.normalized;
+		if (aim != Vector2.zero) {
+			angle = Mathf.Atan2 (aim.y, aim.x) * Mathf.Rad2Deg - 90;
+			apuntando = true;
+		}
+		else 
+			apuntando = false;
 		rig.velocity = direction * speed;
 		if (rig.velocity == Vector2.zero && rastro.isPlaying) 
 			rastro.Stop ();
@@ -79,21 +89,21 @@ public class PlayerController : MonoBehaviour {
 //		//float shootAngle = shoot.transform.rotation.eulerAngles.z;
 //		shoot.GetComponent<Disparo> ().direction = (Vector2)dir.normalized;
 		//shoot.GetComponent<Disparo> ().direction = new Vector2 (Mathf.Cos (shootAngle), Mathf.Sin (shootAngle));
-		curvo *= -1;
-		if (transform.childCount > 0) {
-			DisparoCurvo[] disps = shoot.GetComponentsInChildren<DisparoCurvo> ();
-			for (int i = 0; i < shoot.transform.childCount; i++) {
-				if( disps[i] != null){
-					disps[i].sentido = curvo;
-				}
+//		curvo *= -1;
+//		if (transform.childCount > 0) {
+//			DisparoCurvo[] disps = shoot.GetComponentsInChildren<DisparoCurvo> ();
+				for (int i = 0; i < shoot.transform.childCount; i++) {
+//				if( disps[i] != null){
+//					disps[i].sentido = curvo;
+//				}
 				shoot.transform.GetChild(i).gameObject.layer = gameObject.layer;
 			}
-		} else {
-			DisparoCurvo disp = shoot.GetComponent<DisparoCurvo>();
-			if( disp != null){
-				disp.sentido = curvo;
-			}
-		}
+//		} else {
+//			DisparoCurvo disp = shoot.GetComponent<DisparoCurvo>();
+//			if( disp != null){
+//				disp.sentido = curvo;
+//			}
+//		}
 
 
 		shoot.layer = gameObject.layer;

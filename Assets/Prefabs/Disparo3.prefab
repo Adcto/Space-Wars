@@ -262,6 +262,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
   dispersion: 5
+  cadencia: .200000003
+  TimeToDestroy: 2.5
 --- !u!114 &11477684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -389,6 +391,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: TimeToDestroy
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cadencia
+      value: .200000003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -167,9 +167,9 @@ MonoBehaviour:
   damage: 40
   direction: {x: 0, y: 0}
   dispersion: 0
-  padre: {fileID: 0}
+  padre: {fileID: 11496296}
   TimeToDestroy: 2.5
-  angle: 60
+  startAngle: 60
   smooth: 20
 --- !u!114 &11491686
 MonoBehaviour:
@@ -188,9 +188,9 @@ MonoBehaviour:
   damage: 40
   direction: {x: 0, y: 0}
   dispersion: 0
-  padre: {fileID: 0}
+  padre: {fileID: 11496296}
   TimeToDestroy: 2.5
-  angle: 60
+  startAngle: 60
   smooth: 20
 --- !u!114 &11496296
 MonoBehaviour:
@@ -205,6 +205,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
   dispersion: 5
+  cadencia: .200000003
+  TimeToDestroy: 2
 --- !u!212 &21278928
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -271,6 +273,30 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: damage
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: cadencia
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: angle
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: delay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: padre
+      value: 
+      objectReference: {fileID: 11496296}
+    - target: {fileID: 0}
+      propertyPath: startAngle
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: TimeToDestroy
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

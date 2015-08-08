@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -606,6 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -624,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -642,6 +645,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -662,6 +666,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
   dispersion: 10
+  cadencia: .300000012
+  TimeToDestroy: .800000012
 --- !u!114 &11467382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -673,6 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -691,6 +698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -709,6 +717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -727,6 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .300000012
   damage: 20
@@ -745,6 +755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dee3970c34f7ec49ae4c98d96c6bd9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invertido: 1
   speed: 8
   cadencia: .200000003
   damage: 20
@@ -1003,7 +1014,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TimeToDestroy
-      value: .400000006
+      value: .800000012
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage

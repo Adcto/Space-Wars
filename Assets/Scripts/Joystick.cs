@@ -4,7 +4,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler {
-	
+
+
 	public float smoothing;
 	
 	private Vector2 origin;
@@ -62,4 +63,5 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
 	public float GetAngle(){
 		return angle;
 	}
+
 }
