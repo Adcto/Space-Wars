@@ -53,14 +53,16 @@ public class Disparo : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other){
-		if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Finish" ) {
+		if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Finish" || other.gameObject.tag == "PowerUp") {
 			GameObject go = Pool.current.Crear_Hit_Disparo();
 			go.transform.position = transform.position;
 			go.transform.rotation = transform.rotation;
 			go.SetActive(true);
 			if(other.gameObject.tag == "Enemy")
 				other.gameObject.GetComponent<EnemyController>().QuitarVida(damage);
-
+			else if(other.gameObject.tag == "PowerUp")
+				other.gameObject.GetComponent<PowerUp>().QuitarVida(damage);
+			
 			Desactivate();
 		}
 	}

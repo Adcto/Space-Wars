@@ -27,6 +27,7 @@ public class Pool : MonoBehaviour {
 	public int numDisparos = 10;
 	public int numEnemigos = 10;
 	public bool aumentar_enemigos = false;	
+	public GameObject powerUp;
 
 	void Awake(){
 		current = this;

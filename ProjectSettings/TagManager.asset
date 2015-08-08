@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Disparo
   - Player
+  - FxTemporaire
+  - PowerUp
   layers:
   - Default
   - TransparentFX

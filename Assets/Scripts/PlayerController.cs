@@ -117,5 +117,10 @@ public class PlayerController : MonoBehaviour {
 
 			other.gameObject.GetComponent<EnemyController>().QuitarVida(-1);
 		}
+		if (other.gameObject.tag == "PowerUp") {
+			PowerUp p = other.gameObject.GetComponent<PowerUp>();
+			int powerUp = p.tipo;
+			p.QuitarVida(-1);
+		}
 	}
 }

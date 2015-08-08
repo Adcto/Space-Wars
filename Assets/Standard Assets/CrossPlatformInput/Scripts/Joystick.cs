@@ -75,19 +75,25 @@ namespace UnityStandardAssets.CrossPlatformInput
 		{
 			Vector3 newPos = Vector3.zero;
 
-			if (m_UseX)
-			{
-				int delta = (int)(data.position.x - m_StartPos.x);
-				delta = Mathf.Clamp(delta, - MovementRange, MovementRange);
-				newPos.x = delta;
+			Vector2 delta = new Vector2 ((int)(data.position.x - m_StartPos.x), (int)(data.position.y - m_StartPos.y));
+			if (Vector2.Distance (m_StartPos, data.position) > MovementRange) {
+				newPos = delta.normalized * MovementRange;
 			}
 
-			if (m_UseY)
-			{
-				int delta = (int)(data.position.y - m_StartPos.y);
-				delta = Mathf.Clamp(delta, -MovementRange, MovementRange);
-				newPos.y = delta;
-			}
+
+//			if (m_UseX)
+//			{
+//				delta.x = (int)(data.position.x - m_StartPos.x);
+//				delta.x = Mathf.Clamp(delta.x, - MovementRange, MovementRange);
+//				newPos.x = delta.x;
+//			}
+//
+//			if (m_UseY)
+//			{
+//				delta.y = (int)(data.position.y - m_StartPos.y);
+//				delta.y = Mathf.Clamp(delta.y, -MovementRange, MovementRange);
+//				newPos.y = delta.y;
+//			}
 			transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
 			UpdateVirtualAxes(transform.position);
 		}

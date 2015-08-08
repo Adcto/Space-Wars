@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour {
 	public Vector2 max, min;
 	private int spawnAgujero = 4;
 
+
 	void Awake(){
 		current = this;
 	}
@@ -275,6 +276,11 @@ public class GameManager : MonoBehaviour {
 				
 			}
 		}
+
+
+		//Cuando quiera crear un PowerUp, simplemente Pool.current.powerUp.SetActive (true); + position
+		//Crear uno cada cierto tiempo, y solo uno al mismo tiempo
+		//Quizas cada x puntos crear un powerup??
 	}
 
 	bool ComprobarSpawn(int i){
