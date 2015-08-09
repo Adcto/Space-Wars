@@ -41,6 +41,14 @@ public class Enemy2 : EnemyController {
 			currentPosition++;
 			if (currentPosition >= transPositions.Count)
 				currentPosition = 0;
+//			while(transPositions[currentPosition].position.x <GameManager.current.min.x-0.5f
+//			      && transPositions[currentPosition].position.y < GameManager.current.min.y-0.5f 
+//			      && transPositions[currentPosition].position.x > GameManager.current.max.x +0.5f
+//			      && transPositions[currentPosition].position.y > GameManager.current.max.y+0.5f){
+//				currentPosition++;
+//				if (currentPosition >= transPositions.Count)
+//					currentPosition = 0;
+//			}
 			nextPosition = transPositions[currentPosition].position;
 		}
 

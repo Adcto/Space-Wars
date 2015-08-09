@@ -79,9 +79,8 @@ MonoBehaviour:
   dispersion: 0
   padre: {fileID: 0}
   TimeToDestroy: 2.5
-  angle: 90
+  startAngle: 0
   smooth: 30
-  sentido: 0
 --- !u!212 &21297936
 SpriteRenderer:
   m_ObjectHideFlags: 1

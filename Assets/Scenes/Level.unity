@@ -1575,6 +1575,7 @@ MonoBehaviour:
   Enemigos4: []
   AgujerosNegros: []
   EnemigosRecto: []
+  Asteroides: []
   ExplosionesDisparos: []
   ExplosionesEnemigos: []
   disparo: {fileID: 172346, guid: 181d60a3c8b807b44808abc358c4a676, type: 2}
@@ -1584,9 +1585,10 @@ MonoBehaviour:
   enemigo_4: {fileID: 123554, guid: 303e67020a2bbb144befeece2292a830, type: 2}
   agujero: {fileID: 190750, guid: d4954c4388231e6438ee662fc7a0ad56, type: 2}
   recto: {fileID: 131950, guid: c2ca82d1bae93974eb6641c4a6ae433b, type: 2}
+  asteroide: {fileID: 159300, guid: 3d2e0b9db89076748aefe9d2aaf0c9bd, type: 2}
   hit_disparo: {fileID: 100002, guid: b9ec409b639de7f43842480ac3f3b4e7, type: 2}
   explosion_enemigo: {fileID: 181216, guid: 93758de4c84894b47bbca0c934ee131a, type: 2}
-  tiposEnemigos: 6
+  tiposEnemigos: 7
   numDisparos: 20
   numEnemigos: 4
   aumentar_enemigos: 1
@@ -1879,7 +1881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_Sprite: {fileID: 21300000, guid: 025506a9a29624e4d8000f78f5a06285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -2035,7 +2037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c3c865782347f41b6358d9fba14b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementRange: 22
+  MovementRange: 50
   axesToUse: 0
   horizontalAxisName: HorizontalMovement
   verticalAxisName: VerticalMovement
@@ -2052,7 +2054,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Sprite: {fileID: 21300000, guid: 025506a9a29624e4d8000f78f5a06285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -3203,7 +3205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Sprite: {fileID: 21300000, guid: 025506a9a29624e4d8000f78f5a06285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -3502,7 +3504,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 443184, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11404522, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: movement
@@ -3514,11 +3516,11 @@ Prefab:
       objectReference: {fileID: 534703320}
     - target: {fileID: 450164, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 423192, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11404522, guid: 75935783935f2da4da480831970088fd, type: 2}
       propertyPath: rastro
@@ -3883,7 +3885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c3c865782347f41b6358d9fba14b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementRange: 22
+  MovementRange: 50
   axesToUse: 0
   horizontalAxisName: HorizontalAim
   verticalAxisName: VerticalAim
@@ -3900,7 +3902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_Sprite: {fileID: 21300000, guid: 025506a9a29624e4d8000f78f5a06285, type: 3}
   m_Type: 0
   m_PreserveAspect: 0

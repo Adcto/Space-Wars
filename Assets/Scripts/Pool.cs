@@ -12,6 +12,7 @@ public class Pool : MonoBehaviour {
 	public List<GameObject> Enemigos4;
 	public List<GameObject> AgujerosNegros;
 	public List<GameObject> EnemigosRecto;
+	public List<GameObject> Asteroides;
 	public List<GameObject> ExplosionesDisparos;
 	public List<GameObject> ExplosionesEnemigos;
 	public GameObject disparo;
@@ -21,6 +22,7 @@ public class Pool : MonoBehaviour {
 	public GameObject enemigo_4;
 	public GameObject agujero;
 	public GameObject recto;
+	public GameObject asteroide;
 	public GameObject hit_disparo;
 	public GameObject explosion_enemigo;
 	public int tiposEnemigos = 5;
@@ -62,6 +64,12 @@ public class Pool : MonoBehaviour {
 			go = (GameObject)Instantiate (recto);
 			go.SetActive (false);
 			EnemigosRecto.Add (go);
+		}
+		Asteroides = new List<GameObject> ();
+		for (int i = 0; i < numEnemigos; i++) {
+			go = (GameObject)Instantiate (asteroide);
+			go.SetActive (false);
+			Asteroides.Add (go);
 		}
 		AgujerosNegros = new List<GameObject> ();
 		for (int i = 0; i < 4; i++) {
@@ -151,6 +159,7 @@ public class Pool : MonoBehaviour {
 		return go;
 	}
 
+
 	public GameObject Crear_Enemigo(int tipo){
 		int calidad = tipo / tiposEnemigos;
 		if (tipo % tiposEnemigos != 0)
@@ -230,7 +239,7 @@ public class Pool : MonoBehaviour {
 			}
 			
 			break;
-		case 5:
+		case 5:			//EnemigoRecto
 			for (int i = 0; i<EnemigosRecto.Count; i++) {
 				if (!EnemigosRecto [i].activeInHierarchy) {
 					EnemigosRecto [i].GetComponent<EnemyController> ().calidad = calidad;
@@ -246,7 +255,30 @@ public class Pool : MonoBehaviour {
 			}
 		
 			break;
+		case 6:		//Asteroide
+			for (int i = 0; i<Asteroides.Count; i++) {
+				if (!Asteroides [i].activeInHierarchy) {
+					Asteroide nuevo = Asteroides [i].GetComponent<Asteroide> ();
+					nuevo.tipo = 3;
+					nuevo.direction = new Vector2(Random.Range(-1.0f,1.0f), Random.Range(-1.0f,1.0f));
+					nuevo.calidad = calidad;
+					return  Asteroides [i];
+				}
+			}
+			//si no existe , compueba si se puede crear otro
+			if (aumentar_enemigos) { //aprox
+				GameObject go = (GameObject)Instantiate (asteroide);
+				Asteroide nuevo = go.GetComponent<Asteroide> ();
+				nuevo.tipo = 3;
+				nuevo.direction = new Vector2(Random.Range(-1.0f,1.0f), Random.Range(-1.0f,1.0f));
+				nuevo.calidad = calidad;
+				Asteroides.Add (go);
+				return go;
+			}
+			
+			break;
 		}
+
 
 		return null;
 

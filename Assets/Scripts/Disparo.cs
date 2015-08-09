@@ -58,8 +58,12 @@ public class Disparo : MonoBehaviour {
 			go.transform.position = transform.position;
 			go.transform.rotation = transform.rotation;
 			go.SetActive(true);
-			if(other.gameObject.tag == "Enemy")
+			if(other.gameObject.tag == "Enemy"){
+				if(other.GetType() == typeof(Asteroide)){
+					other.gameObject.GetComponent<Asteroide>().impacto = direction;
+				}
 				other.gameObject.GetComponent<EnemyController>().QuitarVida(damage);
+			}
 			else if(other.gameObject.tag == "PowerUp")
 				other.gameObject.GetComponent<PowerUp>().QuitarVida(damage);
 			
@@ -70,6 +74,7 @@ public class Disparo : MonoBehaviour {
 	void OnBecameInvisible(){
 		Desactivate ();
 	}
+
 	void OnDisable(){
 		CancelInvoke ();
 	}

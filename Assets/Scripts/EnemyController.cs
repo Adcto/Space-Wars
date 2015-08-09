@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 
 	}
+
 	public virtual void OnEnable(){
 		hit = false;
 		maxHealth = healthBase * calidad;
@@ -63,6 +64,8 @@ public class EnemyController : MonoBehaviour {
 			gameObject.SetActive (false);
 		}
 	}
+
+
 	
 
 }
