@@ -22,6 +22,7 @@ public class Asteroide : EnemyController {
 		direction = direction.normalized;
 		currentHealth/=tipo;
 		speed += tipo;
+		score += 10 * tipo;
 	}
 
 	// Update is called once per frame

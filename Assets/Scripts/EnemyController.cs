@@ -5,9 +5,11 @@ public class EnemyController : MonoBehaviour {
 	public int healthBase = 20;
 	public int maxHealth;
 	public int currentHealth;
-	public float speed;
+	public float baseSpeed;
+	protected float speed = 0;
 	public float rotationTime = 540;
-	public int score = 10;
+	public int baseScore = 10;
+	protected int score = 0;
 	public int calidad = 1;
 	protected Animator anim;
 	protected bool hit = false;
@@ -22,6 +24,8 @@ public class EnemyController : MonoBehaviour {
 		hit = false;
 		maxHealth = healthBase * calidad;
 		currentHealth = maxHealth;
+		speed = baseSpeed+calidad*0.5f;
+		score = baseScore * calidad;
 	}
 	// Update is called once per frame
 	public virtual void FixedUpdate () {

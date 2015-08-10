@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject Tienda;
 	public Vector2 max, min;
 	private int spawnAgujero = 4;
+	private int puntuacionMaxima = 10;
+	private int puntAcumulada = 0;
 
 
 	void Awake(){
@@ -66,7 +68,7 @@ public class GameManager : MonoBehaviour {
 		for(int i = 0; i< newSpawns;i++)
 			CreateNewSpawnPoints ();
 
-		valorEnemigos += randomNumber.Next (2, 5);
+		valorEnemigos += randomNumber.Next (2, 5) * valorEnemigos/enemigosTotales;
 		enemigosTotales += randomNumber.Next (0, 2);
 		if (currentRound == 1) {
 			for(int i = 0; i< enemigosTotales; i++){
@@ -112,28 +114,6 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 		tipoEnemigos.Sort ();
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-		if (mult > 1) {
-			if(time > 0){
-				time -= Time.deltaTime;
-				multiplicadorBarra.fillAmount = time/resetMult;
-			}
-			else {
-				mult = 1;
-				multiplicadorText.text = "x" + mult.ToString();
-				multiplicadorBarra.fillAmount = 0;
-			}
-		}
-
-		if ( enemigosEliminados == enemigosTotales ) {
-			enemigosEliminados = 0;
-			Tienda.SetActive(true);
-			Invoke("newRound", 5);
-		}
 	}
 
 	void CrearEnemigos(){
@@ -223,6 +203,25 @@ public class GameManager : MonoBehaviour {
 		enemy.transform.position = spawnPoints[spawnPos].position;
 		enemy.SetActive (true);
 		enemigosRestantes--;
+
+
+		//Crear uno cada cierto tiempo, y solo uno al mismo tiempo
+		//Quizas cada x puntos crear un powerup??
+		if (randomNumber.Next (0, 100) == 50) {
+			GameObject powerup = Pool.current.Crear_PowerUp ();
+			spawnPos = randomNumber.Next (0, spawnPoints.Count);
+			
+			while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {
+				spawnPos = randomNumber.Next (0, spawnPoints.Count);
+			}
+			
+			powerup.transform.position = spawnPoints [spawnPos].position;
+			PowerUp pu = powerup.GetComponent<PowerUp>();
+			pu.tipo = randomNumber.Next(1,pu.maxTipos);
+			powerup.SetActive(true);
+		}
+		
+
 	}
 
 	void SpawnearOleada(int pos){
@@ -276,11 +275,6 @@ public class GameManager : MonoBehaviour {
 				
 			}
 		}
-
-
-		//Cuando quiera crear un PowerUp, simplemente Pool.current.powerUp.SetActive (true); + position
-		//Crear uno cada cierto tiempo, y solo uno al mismo tiempo
-		//Quizas cada x puntos crear un powerup??
 	}
 
 	bool ComprobarSpawn(int i){
@@ -310,12 +304,43 @@ public class GameManager : MonoBehaviour {
 	
 	}
 
+	// Update is called once per frame
+	void Update () {
+		
+		if (mult > 1) {
+			if(time > 0){
+				time -= Time.deltaTime;
+				puntAcumulada -=(int)Time.deltaTime*10;
+				multiplicadorBarra.fillAmount = time/resetMult;
+			}
+			else {
+				mult = 1;
+				multiplicadorText.text = "x" + mult.ToString();
+				multiplicadorBarra.fillAmount = 0;
+				puntAcumulada = 0;
+				puntuacionMaxima =10;
+			}
+		}
+		
+		if ( enemigosEliminados == enemigosTotales ) {
+			enemigosEliminados = 0;
+			Tienda.SetActive(true);
+			Invoke("newRound", 5);
+		}
+	}
 	public void AddScore(int punt){
 		punt *= mult;
 		//Para mejorar el sistema de multiplicador, solo habria que sumar algo a tiempo, y cuando tiempo >=resetmult -> mult++
-		//Quizas x punts son = cierta cantidad de tiempo? hay que pensarlo
-		mult++;
-		time = resetMult;
+		//Quizas x punts son = cierta cantidad de tiempo? hay que pensarlo -> Igual que Slayin
+		puntAcumulada += punt;
+		time =resetMult* (float)puntAcumulada / (float)puntuacionMaxima;
+
+		if (time >= resetMult) {
+			puntAcumulada = 0;
+			puntuacionMaxima+=50;
+			mult++;
+			time = resetMult;
+		}
 		multiplicadorText.text = "x" + mult.ToString();
 		string[] split = score.text.Split(':');
 		punt += int.Parse (split [1]);

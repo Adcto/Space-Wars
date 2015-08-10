@@ -36,13 +36,15 @@ public class MenuManager : MonoBehaviour {
 		if (i == Selected) {		//DobleClick -> Comprar
 			comprar = true;
 			Selected = 0;
-		} else 
+		} else {
 			Selected = i;
+			//Como calcular el tiempo de dobleclick si cuando entras en la tienda timeScale = 0??
+			//Fuck My Life
+		}
 
 		//Siempre que seleccionas un item, te guardas su coste en oro/gemas y el item que vas a equiparte en caso de comprarlo.
 		//Estos valores se resetean y modifican cada vez q seleccionas un nuevo item
 	}
-
 	public void GastarGemas(int valor){
 		pagarGemas = valor;
 		if (comprar) {
@@ -67,6 +69,7 @@ public class MenuManager : MonoBehaviour {
 				pagarOro = pagarGemas = 0;
 				Pool.current.disparo = disparo;
 				Pool.current.EquiparDisparos ();
+				Debug.Log("Comprado:" + disparo.name);
 			}
 			else {
 				//oro o gemas += pagarOro o pagarGemas; Reembolsar el pago xk el objeto es el mismo!!
@@ -85,6 +88,7 @@ public class MenuManager : MonoBehaviour {
 				else 
 					GastarGemas(pagarGemas);
 				CambiarDisparo(disparoEquipable);
+				Debug.Log("Comprado desde el boton buy!");
 			}
 		}
 	}

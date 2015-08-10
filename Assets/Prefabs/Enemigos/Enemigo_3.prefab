@@ -205,9 +205,9 @@ MonoBehaviour:
   healthBase: 40
   maxHealth: 0
   currentHealth: 0
-  speed: 5
+  baseSpeed: 5
   rotationTime: 1080
-  score: 30
+  baseScore: 30
   calidad: 1
   transPositions:
   - {fileID: 478186}
@@ -280,11 +280,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: score
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: speed
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
@@ -301,6 +301,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: healthBase
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseScore
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -121,9 +121,9 @@ MonoBehaviour:
   healthBase: 20
   maxHealth: 0
   currentHealth: 0
-  speed: 3
+  baseSpeed: 3
   rotationTime: 540
-  score: 10
+  baseScore: 10
   calidad: 1
 --- !u!212 &21206374
 SpriteRenderer:
@@ -207,6 +207,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_SortingLayerID
       value: -339131979
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseSpeed
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - 58: {fileID: 5853410}
   - 114: {fileID: 11406280}
   - 95: {fileID: 9597464}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Agujero Negro
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -75,10 +75,14 @@ MonoBehaviour:
   healthBase: 250
   maxHealth: 0
   currentHealth: 0
+  baseSpeed: 0
   speed: 0
   rotationTime: 540
-  score: 10
+  baseScore: 50
+  score: 0
   calidad: 1
+  baseDist: 4
+  baseForce: 1
   dist: 7
   force: 2
 --- !u!212 &21256030
@@ -145,6 +149,26 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: force
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: score
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseScore
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseDist
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseForce
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

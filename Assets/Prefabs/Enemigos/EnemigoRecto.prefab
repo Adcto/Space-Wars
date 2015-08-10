@@ -121,9 +121,9 @@ MonoBehaviour:
   healthBase: 20
   maxHealth: 0
   currentHealth: 0
-  speed: 7
+  baseSpeed: 5
   rotationTime: 270
-  score: 10
+  baseScore: 30
   calidad: 1
   girar: 0
   girando: 0
@@ -211,6 +211,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: baseScore
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

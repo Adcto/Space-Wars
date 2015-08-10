@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
   dispersion: 5
-  cadencia: .200000003
+  cadencia: .100000001
   TimeToDestroy: 2.5
 --- !u!114 &11485478
 MonoBehaviour:
@@ -268,7 +268,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cadencia
-      value: .200000003
+      value: .100000001
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_LocalPosition.x

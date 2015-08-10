@@ -9,14 +9,6 @@ public class Enemy2 : EnemyController {
 	private int currentPosition = 0;
 	private Vector3 prevPos;
 	private bool quieto = false;
-	// Use this for initialization
-//	public override void Start () {
-//		nextPositions = new List<Vector2> ();
-//		ActualizarPosiciones ();
-//
-//	}
-//	
-	// Update is called once per frame
 
 
 	public override void OnEnable(){
@@ -24,12 +16,12 @@ public class Enemy2 : EnemyController {
 		nextPosition = transPositions[0].position;
 		prevPos = Vector3.forward;
 		quieto = false;
-		base.OnEnable (); //reset hp
+		base.OnEnable (); //reset stats
 	}
 
 	public override Vector3 NextPos(){
-		if (transform.position != prevPos)
-			quieto = false;
+		if (transform.position == prevPos)
+			quieto = true;
 
 		if (Vector2.Distance (nextPosition, (Vector2)transform.position) > Vector2.Distance ((Vector2)PlayerController.current.transform.position, (Vector2)transform.position))
 			return (Vector2)PlayerController.current.transform.position;
@@ -38,6 +30,8 @@ public class Enemy2 : EnemyController {
 		if (Vector2.Distance (nextPosition, (Vector2)transform.position) <= Vector2.kEpsilon || hit || quieto) {
 			if(hit) 
 				hit = false;
+			if(quieto)
+				quieto = false;
 			currentPosition++;
 			if (currentPosition >= transPositions.Count)
 				currentPosition = 0;
@@ -52,30 +46,18 @@ public class Enemy2 : EnemyController {
 			nextPosition = transPositions[currentPosition].position;
 		}
 
-		if (transform.position == prevPos)
-			quieto = true;
-
-
-
-
+		/*
+		Bugs:
+		-Se quedan atascados en las paredes x un tiempo, mientras encuentran la nextPosition adecuada
+		-Cuando spawnean oleadas, algunas veces se juntan varios y se quedan atascados -> depende de la pos del player, por casualidad se da el angulo justo para q ocurra
+		*/
+	
 
 		prevPos = transform.position;
-
-		//si has recorrido todas las posiciones, actualiza
-//		if (currentPosition >= transPositions.Count) {	
-//			ActualizarPosiciones();
-//		}
-		//siguiente posicion
 		return nextPosition;	
 	}
 	
-//	void ActualizarPosiciones(){
-//		nextPositions.Clear ();
-//		currentPosition = 0;
-//		foreach (Transform pos in transPositions) {
-//			nextPositions.Add (pos.position);
-//		}
-//	}
+
 
 	void OnCollisionEnter2D(Collision2D other){
 		if (other.gameObject.tag == "Finish") {

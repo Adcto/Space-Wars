@@ -159,6 +159,12 @@ public class Pool : MonoBehaviour {
 		return go;
 	}
 
+	public GameObject Crear_PowerUp(){
+		if (powerUp.activeInHierarchy)
+			return null;
+		return powerUp;
+	}
+
 
 	public GameObject Crear_Enemigo(int tipo){
 		int calidad = tipo / tiposEnemigos;
@@ -259,7 +265,7 @@ public class Pool : MonoBehaviour {
 			for (int i = 0; i<Asteroides.Count; i++) {
 				if (!Asteroides [i].activeInHierarchy) {
 					Asteroide nuevo = Asteroides [i].GetComponent<Asteroide> ();
-					nuevo.tipo = 3;
+					nuevo.tipo = 1;
 					nuevo.direction = new Vector2(Random.Range(-1.0f,1.0f), Random.Range(-1.0f,1.0f));
 					nuevo.calidad = calidad;
 					return  Asteroides [i];
@@ -269,7 +275,7 @@ public class Pool : MonoBehaviour {
 			if (aumentar_enemigos) { //aprox
 				GameObject go = (GameObject)Instantiate (asteroide);
 				Asteroide nuevo = go.GetComponent<Asteroide> ();
-				nuevo.tipo = 3;
+				nuevo.tipo = 1;
 				nuevo.direction = new Vector2(Random.Range(-1.0f,1.0f), Random.Range(-1.0f,1.0f));
 				nuevo.calidad = calidad;
 				Asteroides.Add (go);

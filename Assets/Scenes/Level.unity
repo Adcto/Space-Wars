@@ -1608,7 +1608,7 @@ MonoBehaviour:
   score: {fileID: 817611575}
   multiplicadorText: {fileID: 1952764022}
   multiplicadorBarra: {fileID: 1377901159}
-  resetMult: 1.5
+  resetMult: 2
   spawnPoints:
   - {fileID: 590160054}
   - {fileID: 2037262555}
@@ -1623,9 +1623,9 @@ MonoBehaviour:
   seed: Victor
   tiempoNuevaRonda: 5
   currentRound: 6
-  enemigosTotales: 30
+  enemigosTotales: 100
   maxEnemigosSimultaneos: 25
-  valorEnemigos: 30
+  valorEnemigos: 120
   enemigosEliminados: 0
   tipoEnemigos: 
   enemigosSpawneados: 
@@ -3976,7 +3976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menu: {fileID: 400484619}
   tienda: {fileID: 1779060407}
-  tiempoEntrada: 1.5
+  tiempoEntrada: 1
 --- !u!58 &1175308876
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5182,7 +5182,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -40}
-  m_SizeDelta: {x: 33.9000015, y: 30}
+  m_SizeDelta: {x: 50.2999992, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1952764022
 MonoBehaviour:

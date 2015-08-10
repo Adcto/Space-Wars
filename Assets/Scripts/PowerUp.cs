@@ -8,6 +8,7 @@ public class PowerUp : MonoBehaviour {
 	public float speed;
 	public float rotationTime = 540;
 	public int tipo = 0;
+	public int maxTipos = 8;
 	public Sprite[] sprites;
 	private SpriteRenderer rend;
 
@@ -17,7 +18,7 @@ public class PowerUp : MonoBehaviour {
 
 
 	public  void OnEnable(){
-		tipo = Random.Range (1, sprites.Length+1);
+		tipo = Random.Range (1, maxTipos+1);
 		rend.sprite = sprites [tipo - 1];
 		currentHealth = maxHealth;
 	}
