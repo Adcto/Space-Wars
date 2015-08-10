@@ -6,6 +6,7 @@ public class OpenTienda : MonoBehaviour {
 	public MenuManager menu;
 	public Menu tienda;
 	public float tiempoEntrada = 1;
+	public float tiempoDesactivacion = 4;
 	private float time = 0;
 	
 	// Use this for initialization
@@ -20,7 +21,7 @@ public class OpenTienda : MonoBehaviour {
 
 
 	void OnEnable(){
-		Invoke ("Desactivate", 4);
+		Invoke ("Desactivate", tiempoDesactivacion);
 	}
 
 	void Desactivate(){
@@ -36,7 +37,7 @@ public class OpenTienda : MonoBehaviour {
 				menu.ShowMenu(tienda);
 				CancelInvoke();
 				Desactivate();
-				Time.timeScale = 0;
+				GameManager.current.CancelInvoke();
 				//OnTriggerExit2D -> time = 0 ??; asi creo q ya esta bien
 
 			}

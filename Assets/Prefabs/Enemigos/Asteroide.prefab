@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11416760}
   m_Layer: 10
   m_Name: Asteroide
-  m_TagString: Enemy
+  m_TagString: Asteroide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,11 +126,10 @@ MonoBehaviour:
   baseScore: 10
   calidad: 1
   tipo: 3
-  hijos: 1
+  hijos: 2
   maxDivisiones: 3
   direction: {x: 0, y: 0}
   impacto: {x: 0, y: 0}
-  cambio: 0
   rebote: {x: 0, y: 0}
 --- !u!212 &21217730
 SpriteRenderer:
@@ -210,6 +209,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: baseSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hijos
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Asteroide
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

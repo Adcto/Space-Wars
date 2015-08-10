@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour {
 	protected bool hit = false;
 
 	// Use this for initialization
-	public virtual void Start () {
+	public virtual void Awake () {
 		anim = GetComponent<Animator> ();
 
 	}

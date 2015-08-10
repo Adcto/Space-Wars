@@ -9,6 +9,7 @@ TagManager:
   - Player
   - FxTemporaire
   - PowerUp
+  - Asteroide
   layers:
   - Default
   - TransparentFX

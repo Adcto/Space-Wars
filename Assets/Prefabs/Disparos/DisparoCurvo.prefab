@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   invertido: 1
   speed: 6
-  cadencia: .0700000003
+  cadencia: .0599999987
   damage: 40
   direction: {x: 0, y: 0}
   dispersion: 0
@@ -128,7 +128,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cadencia
-      value: .0700000003
+      value: .0599999987
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: dispersion

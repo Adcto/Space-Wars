@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	public void Start () {
+
 		ShowMenu (CurrentMenu);
 	}
 	
@@ -28,7 +29,7 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void QuitTienda(){
-		Time.timeScale = 1;
+		GameManager.current.newRound ();
 		ShowMenu (PreviousMenu);
 	}
 
@@ -38,13 +39,18 @@ public class MenuManager : MonoBehaviour {
 			Selected = 0;
 		} else {
 			Selected = i;
-			//Como calcular el tiempo de dobleclick si cuando entras en la tienda timeScale = 0??
-			//Fuck My Life
+			StartCoroutine(DobleClick());
 		}
 
 		//Siempre que seleccionas un item, te guardas su coste en oro/gemas y el item que vas a equiparte en caso de comprarlo.
 		//Estos valores se resetean y modifican cada vez q seleccionas un nuevo item
 	}
+
+	IEnumerator DobleClick(){
+		yield return new WaitForSeconds (0.4f);
+		Selected = 0;
+	}
+
 	public void GastarGemas(int valor){
 		pagarGemas = valor;
 		if (comprar) {

@@ -205,7 +205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
   dispersion: 5
-  cadencia: .100000001
+  cadencia: .0799999982
   TimeToDestroy: 2
 --- !u!212 &21278928
 SpriteRenderer:
@@ -276,7 +276,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cadencia
-      value: .100000001
+      value: .0799999982
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: angle

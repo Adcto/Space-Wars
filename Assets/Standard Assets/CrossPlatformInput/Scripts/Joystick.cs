@@ -18,7 +18,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 		public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
 		public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input
 		public string verticalAxisName = "Vertical"; // The name given to the vertical axis for the cross platform input
-
+		public GameObject move;
 		Vector3 m_StartPos;
 		bool m_UseX; // Toggle for using the x axis
 		bool m_UseY; // Toggle for using the Y axis
@@ -32,7 +32,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         void Start()
         {
-            m_StartPos = transform.position;
+            m_StartPos = move.transform.position;
         }
 
 		void UpdateVirtualAxes(Vector3 value)
@@ -79,7 +79,8 @@ namespace UnityStandardAssets.CrossPlatformInput
 			if (Vector2.Distance (m_StartPos, data.position) > MovementRange) {
 				newPos = delta.normalized * MovementRange;
 			}
-
+			else 
+				newPos = delta;
 
 //			if (m_UseX)
 //			{
@@ -94,19 +95,29 @@ namespace UnityStandardAssets.CrossPlatformInput
 //				delta.y = Mathf.Clamp(delta.y, -MovementRange, MovementRange);
 //				newPos.y = delta.y;
 //			}
-			transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
-			UpdateVirtualAxes(transform.position);
+			move.transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
+			UpdateVirtualAxes(move.transform.position);
 		}
 
 
 		public void OnPointerUp(PointerEventData data)
 		{
-			transform.position = m_StartPos;
+			move.transform.position = m_StartPos;
 			UpdateVirtualAxes(m_StartPos);
 		}
 
 
-		public void OnPointerDown(PointerEventData data) { }
+		public void OnPointerDown(PointerEventData data) {
+			Vector3 newPos = Vector3.zero;
+			
+			Vector2 delta = new Vector2 ((int)(data.position.x - m_StartPos.x), (int)(data.position.y - m_StartPos.y));
+			if (Vector2.Distance (m_StartPos, data.position) > MovementRange) {
+				newPos = delta.normalized * MovementRange;
+			} else 
+				newPos = delta;
+			move.transform.position = new Vector3(m_StartPos.x + newPos.x, m_StartPos.y + newPos.y, m_StartPos.z + newPos.z);
+			UpdateVirtualAxes(move.transform.position);
+		}
 
 		void OnDisable()
 		{

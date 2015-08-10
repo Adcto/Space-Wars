@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
-  dispersion: 5
+  dispersion: 10
   cadencia: .100000001
   TimeToDestroy: 2.5
 --- !u!114 &11477684
@@ -378,7 +378,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: dispersion
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: invertido

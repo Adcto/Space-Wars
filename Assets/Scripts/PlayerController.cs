@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour {
 		//float x = Mathf.Clamp (transform.position.x, min.x, max.x);
 		//float y = Mathf.Clamp (transform.position.y, min.y,max.y);
 		//transform.position = new Vector2 (x, y);
-		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0, 0, angle), 540 * Time.deltaTime); // Giro con delay
+		transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0, 0, angle), 1080 * Time.deltaTime); // Giro con delay
 		//rig.MoveRotation(angle); //Giro Instantaneo
 	}
 
@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other){
-		if (other.gameObject.tag == "Enemy") {
+		if (other.gameObject.tag == "Enemy" ||other.gameObject.tag == "Asteroide" ) {
 			currentHealth--;
 			//transform.position = Vector2.zero;
 

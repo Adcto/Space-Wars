@@ -9,10 +9,10 @@ public class EnemyRecto : EnemyController {
 	public int angle;
 	Rigidbody2D rig;
 
-	public override void Start ()
+	public override void Awake ()
 	{
 		rig = GetComponent<Rigidbody2D> ();
-		base.Start ();
+		base.Awake ();
 	}
 	public override void OnEnable ()
 	{

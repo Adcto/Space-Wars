@@ -595,7 +595,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11410912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -614,7 +614,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11422950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,7 +633,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11431752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -652,7 +652,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11463896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -665,9 +665,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hijosDesactivados: 0
-  dispersion: 10
-  cadencia: .300000012
-  TimeToDestroy: .800000012
+  dispersion: 15
+  cadencia: .25
+  TimeToDestroy: .600000024
 --- !u!114 &11467382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -686,7 +686,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11471514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,7 +705,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11490580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -724,7 +724,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11493086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,7 +743,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!114 &11499874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -762,7 +762,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0}
   dispersion: 0
   padre: {fileID: 11463896}
-  TimeToDestroy: .400000006
+  TimeToDestroy: 5
 --- !u!212 &21225686
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1006,15 +1006,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: dispersion
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: cadencia
-      value: .300000012
+      value: .25
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: TimeToDestroy
-      value: .800000012
+      value: .600000024
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: damage

@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
 		newRound ();
 	}
 
-	void newRound(){
+	public void newRound(){
 		currentRound++;
 		if (currentRound % 3 == 0) {
 			maxEnemigosSimultaneos++;
@@ -209,16 +209,18 @@ public class GameManager : MonoBehaviour {
 		//Quizas cada x puntos crear un powerup??
 		if (randomNumber.Next (0, 100) == 50) {
 			GameObject powerup = Pool.current.Crear_PowerUp ();
-			spawnPos = randomNumber.Next (0, spawnPoints.Count);
-			
-			while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {
+			if(powerup != null){
 				spawnPos = randomNumber.Next (0, spawnPoints.Count);
+				
+				while (spawnPos < 4 && !ComprobarSpawn(spawnPos)) {
+					spawnPos = randomNumber.Next (0, spawnPoints.Count);
+				}
+				
+				powerup.transform.position = spawnPoints [spawnPos].position;
+				PowerUp pu = powerup.GetComponent<PowerUp>();
+				pu.tipo = randomNumber.Next(1,pu.maxTipos);
+				powerup.SetActive(true);
 			}
-			
-			powerup.transform.position = spawnPoints [spawnPos].position;
-			PowerUp pu = powerup.GetComponent<PowerUp>();
-			pu.tipo = randomNumber.Next(1,pu.maxTipos);
-			powerup.SetActive(true);
 		}
 		
 

@@ -292,4 +292,27 @@ public class Pool : MonoBehaviour {
 
 	}
 
+	public GameObject Crear_Asteroide(int tipo, int calidad, Vector2 dir){
+		for (int i = 0; i<Asteroides.Count; i++) {
+			if (!Asteroides[i].activeInHierarchy) {
+				Asteroide nuevo = Asteroides[i].GetComponent<Asteroide> ();
+				nuevo.tipo = tipo;
+				nuevo.direction =dir;
+				nuevo.calidad = calidad;
+				return  Asteroides [i];
+			}
+		}
+		//si no existe , compueba si se puede crear otro
+		if (aumentar_enemigos) { //aprox
+			GameObject go = (GameObject)Instantiate (asteroide);
+			Asteroide nuevo = go.GetComponent<Asteroide> ();
+			nuevo.tipo = tipo;
+			nuevo.direction = dir;
+			nuevo.calidad = calidad;
+			Asteroides.Add (go);
+			return go;
+		}
+		return null;
+	}
+
 }
