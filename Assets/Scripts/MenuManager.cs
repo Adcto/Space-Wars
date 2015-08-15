@@ -7,9 +7,10 @@ public class MenuManager : MonoBehaviour {
 	private int Selected = 0;
 	private bool comprar = false;
 	private bool equipar = false;
-	private GameObject disparoEquipable;
+	private GameObject objetoEquipable;
 	private int pagarOro = 0;
 	private int pagarGemas = 0;
+	private int tipoObjeto = 0; //1 - disparo, 2 - Companion
 
 	// Use this for initialization
 	public void Start () {
@@ -81,21 +82,41 @@ public class MenuManager : MonoBehaviour {
 				//oro o gemas += pagarOro o pagarGemas; Reembolsar el pago xk el objeto es el mismo!!
 			}
 		} else {
-			//En caso de haber mas tipos de objetos (variables), que no sean disparos, el resto se convierten en null!!!!
-			disparoEquipable = disparo;
+			tipoObjeto = 1;
+			objetoEquipable = disparo;
 		}
 	}
+
+	public void EquiparCompanion(GameObject companion){ //tendra q tener un limite
+		if (equipar) {
+			equipar = false;
+			GameObject comp =(GameObject) Instantiate(objetoEquipable, PlayerController.current.transform.position, PlayerController.current.transform.rotation);
+			comp.layer = PlayerController.current.gameObject.layer;
+			comp.transform.parent = PlayerController.current.transform;
+		} else {
+			tipoObjeto = 2;
+			objetoEquipable = companion;
+		}
+	}
+
+
 	public void Comprar(){
-		if (disparoEquipable != null) {
-			if(disparoEquipable != Pool.current.disparo){
-				comprar = true;
-				if(pagarOro > 0)
-					GastarOro(pagarOro);
-				else 
-					GastarGemas(pagarGemas);
-				CambiarDisparo(disparoEquipable);
-				Debug.Log("Comprado desde el boton buy!");
+		if (objetoEquipable != null) {
+			comprar = true;
+			if(pagarOro > 0)
+				GastarOro(pagarOro);
+			else 
+				GastarGemas(pagarGemas);
+
+			if(tipoObjeto == 1 &&  objetoEquipable != Pool.current.disparo){
+				CambiarDisparo(objetoEquipable);
 			}
+			else if(tipoObjeto == 2){
+				EquiparCompanion(objetoEquipable);
+			}
+			Debug.Log("Comprado desde el boton buy!");
+			objetoEquipable = null;
+			tipoObjeto =0;
 		}
 	}
 

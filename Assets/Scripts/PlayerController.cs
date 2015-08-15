@@ -18,11 +18,13 @@ public class PlayerController : MonoBehaviour {
 	private Vector2 shootDirection;
 	private Rigidbody2D rig;
 	private float cooldownDisparo = 0;
+	[HideInInspector]
 	public Collider2D collider;
 	public Vector2 direction;
 	public ParticleSystem rastro;
 	public Vector2 aim;
-	private bool apuntando = false;
+	[HideInInspector]
+	public bool apuntando = false;
 
 	// Use this for initialization
 	void Awake(){
